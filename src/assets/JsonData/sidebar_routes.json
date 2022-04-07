@@ -1,7 +1,7 @@
 [
     {
         "display_name": "Interview Result",
-        "route": "/interview-result",
+        "route": "/result",
         "icon": "bx bx-table"
     },
     {

@@ -17,7 +17,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { useHistory } from "react-router-dom";
-import schema from "../../Validation/schema";
+import schema from "../../Validation/InterviewFormSchema";
 
 // import { AddResult, updateResult } from "../../Store/actions";
 

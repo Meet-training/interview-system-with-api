@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik, ErrorMessage } from "formik";
 import { Typography, Grid, TextField, Button, Paper } from "@mui/material";
-import schema from "../../Validation/schema";
+import schema from "../../Validation/UserFormSchema";
 import { useHistory } from "react-router-dom";
-import DatePicker from "react-date-picker";
-import moment from "moment";
+// import DatePicker from "react-date-picker";
+// import moment from "moment";
 
 const UserForm = () => {
   const history = useHistory();
@@ -66,7 +66,7 @@ const UserForm = () => {
             onSubmit={handleSubmit}
           >
             <Grid container spacing={2}>
-              <Grid sx={{ mb: 3 }} item md={6} xs={12}>
+              <Grid sx={{ mb: 2 }} item md={6} xs={12}>
                 <TextField
                   sx={{ width: "100%" }}
                   type="text"
@@ -125,18 +125,19 @@ const UserForm = () => {
               />
             </Grid>
             <Grid sx={{ mb: 4 }}>
-              <DatePicker
+              {/* <DatePicker
                 className="form-control"
                 onChange={onChange}
                 value={dob}
                 minDate={moment().subtract(150, "years")._d}
                 maxDate={moment().subtract(18, "years")._d}
-              />
-              {/* <TextField
+              /> */}
+
+              <TextField
                 sx={{ width: "100%" }}
                 type="date"
                 name="birthdate"
-                label="Date Of Interview"
+                label="Birth Date"
                 value={values.birthdate}
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -151,7 +152,7 @@ const UserForm = () => {
                 component="div"
                 name="birthdate"
                 className="invalid-feedback"
-              /> */}
+              />
             </Grid>
             <Grid sx={{ mb: 4 }}>
               <TextField

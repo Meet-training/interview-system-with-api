@@ -1,13 +1,19 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Box,
+  Button,
+  Typography,
+} from "@mui/material";
+
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Box, Button, Typography } from "@mui/material";
+
 import { useHistory } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -63,7 +69,7 @@ const InterviewResultTable = () => {
           mx: 1,
         }}
       >
-        <Typography variant="h5">User List</Typography>
+        <Typography variant="h5">Interview Result List</Typography>
 
         <Button
           variant="contained"

@@ -1,14 +1,19 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import {
+  Avatar,
+  Button,
+  TextField,
+  Box,
+  Typography,
+  Container,
+} from "@mui/material";
+
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 
 import { useHistory } from "react-router-dom";
-import { Paper } from "@mui/material";
+
+import { useDispatch } from "react-redux";
+import authActions from "../../redux/Auth/action";
 
 const LoginLayout = () => {
   const [state, setState] = React.useState({
@@ -20,6 +25,8 @@ const LoginLayout = () => {
 
   const history = useHistory();
 
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
@@ -30,8 +37,10 @@ const LoginLayout = () => {
     const data = {
       ...state,
     };
+
+    dispatch(authActions.loginRequest(data));
     console.log(data);
-    history.push("/interview-result");
+    // history.push("/interview-result");
   };
 
   return (
@@ -48,7 +57,7 @@ const LoginLayout = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Login
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -80,7 +89,7 @@ const LoginLayout = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Login
           </Button>
           {/* <Grid container>
           <Grid item>
