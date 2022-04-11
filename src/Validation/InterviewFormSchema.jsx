@@ -13,40 +13,45 @@ const InterviewFormSchema = Yup.object().shape({
     .min(1, "Select Atleast One Technology")
     .required("Please Select Technology!"),
 
-  experienceInYear: Yup.number()
+  experience: Yup.number()
     .integer()
-    .typeError("Please Enter Valid Year!")
-    .required("Please Enter experience In Year!"),
+    .typeError("Please Enter Experience!")
+    .required("Please Enter experience !"),
 
-  experienceInMonth: Yup.number()
-    .min(0, "Minimum Value 0!")
-    .max(11, "Max Value 11!")
-    .integer()
-    .typeError("Please Enter Valid Month!")
-    .required("Please Enter experience In Month!"),
+  // experienceInYear: Yup.number()
+  //   .integer()
+  //   .typeError("Please Enter Valid Year!")
+  //   .required("Please Enter experience In Year!"),
 
-  round: Yup.string().optional().required("Please Select Round!"),
+  // experienceInMonth: Yup.number()
+  //   .min(0, "Minimum Value 0!")
+  //   .max(11, "Max Value 11!")
+  //   .integer()
+  //   .typeError("Please Enter Valid Month!")
+  //   .required("Please Enter experience In Month!"),
 
-  communication: Yup.string().when("round", {
+  rounds: Yup.string().optional().required("Please Select Round!"),
+
+  communication: Yup.string().when("rounds", {
     is: (round) => round === "Technical",
     then: Yup.string().required("Please Select Communication level!"),
   }),
 
-  practical: Yup.number().when("round", {
+  practicalCompletion: Yup.number().when("rounds", {
     is: (round) => round === "Practical",
     then: Yup.number()
       .typeError("Please Enter Only Digit!")
       .required("Please Enter Practical Completion!"),
   }),
 
-  coding: Yup.number().when("round", {
+  codingStandard: Yup.number().when("rounds", {
     is: (round) => round === "Practical",
     then: Yup.number()
       .typeError("Please Enter Only Digit!")
       .required("Please Enter Coding Standard!"),
   }),
 
-  technical: Yup.number().when("round", {
+  technicalRound: Yup.number().when("rounds", {
     is: (round) => round === "Technical",
     then: Yup.number()
       .typeError("Please Enter Only Digit!")

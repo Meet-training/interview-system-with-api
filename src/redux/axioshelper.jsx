@@ -18,7 +18,7 @@ const getHeaders = () => {
     },
   };
   if (authToken) {
-    config.headers.authorization = authToken;
+    config.headers.authorization = `Bearer ${authToken}`;
   }
 
   return config;

@@ -16,6 +16,10 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 
 import { useHistory } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import { useSelector } from "react-redux";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Edit } from "@mui/icons-material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,20 +41,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-//   createData("Eclair", 262, 16.0, 24, 6.0),
-//   createData("Cupcake", 305, 3.7, 67, 4.3),
-//   createData("Gingerbread", 356, 16.0, 49, 3.9),
-// ];
-
 const InterviewResultTable = () => {
-  console.log("render");
+  const resultlist = useSelector(
+    (state) => state.interviewResult.InterviewResultTable
+  );
+  console.log(resultlist);
   const history = useHistory();
 
   const handleAddResult = (e) => {
@@ -94,13 +89,9 @@ const InterviewResultTable = () => {
               <StyledTableCell align="center">Candidate</StyledTableCell>
               <StyledTableCell align="center">Interviewer</StyledTableCell>
               <StyledTableCell align="center">Technology</StyledTableCell>
-              <TableCell align="center" colSpan={2} sx={{ color: "white" }}>
-                Experience
-                <TableCell sx={{ color: "white" }}>Year</TableCell>
-                <TableCell sx={{ color: "white" }}>Month</TableCell>
-              </TableCell>
+              <StyledTableCell align="center">Experience</StyledTableCell>
               <StyledTableCell align="center">Round</StyledTableCell>
-              <StyledTableCell align="center">Communication</StyledTableCell>
+              {/* <StyledTableCell align="center">Communication</StyledTableCell> */}
               <StyledTableCell align="center">
                 Practical Completion
               </StyledTableCell>
@@ -108,23 +99,51 @@ const InterviewResultTable = () => {
               <StyledTableCell align="center">
                 Technical Completion
               </StyledTableCell>
-              <StyledTableCell align="center">Notes</StyledTableCell>
+              {/* <StyledTableCell align="center">Notes</StyledTableCell> */}
               <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
-          {/* <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+          <TableBody>
+            {resultlist.map((row) => (
+              <StyledTableRow key={`${row.id}`}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {row.date}
                 </StyledTableCell>
-                <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                <StyledTableCell align="center">{row.protein}</StyledTableCell>
+                <StyledTableCell align="center">{row.name}</StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.interviewer}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.technology}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.experience}
+                </StyledTableCell>
+                <StyledTableCell align="center">{row.rounds}</StyledTableCell>
+                {/* <StyledTableCell align="center">
+                  {row.communication}
+                </StyledTableCell> */}
+                <StyledTableCell align="center">
+                  {row.practicalCompletion}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.codingStandard}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.technicalRound}
+                </StyledTableCell>
+                {/* <StyledTableCell align="center">{row.notes}</StyledTableCell> */}
+                <StyledTableCell align="center">
+                  <Button>
+                    <EditIcon sx={{ color: "mediumseagreen" }} />
+                  </Button>
+                  <Button onClick={deleteResultHandler}>
+                    <DeleteIcon sx={{ color: "red" }} />
+                  </Button>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
-          </TableBody> */}
+          </TableBody>
         </Table>
       </TableContainer>
     </Box>

@@ -18,48 +18,32 @@ import {
 } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import schema from "../../Validation/InterviewFormSchema";
+import authActions from "../../redux/InterviewResult/action";
 
-// import { AddResult, updateResult } from "../../Store/actions";
-
-const InterviewResultForm = ({
-  showResultTable,
-  selectedResultField,
-  updateField,
-}) => {
+const InterviewResultForm = () => {
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const initialValue = {
     date: "",
     name: "",
     interviewer: "",
     technology: [],
-    experienceInYear: "",
-    experienceInMonth: "",
-    round: "",
+    experience: "",
+
+    rounds: "",
     communication: "",
-    practical: "",
-    coding: "",
-    technical: "",
+    practicalCompletion: "",
+    codingStandard: "",
+    technicalRound: "",
     notes: "",
-    id: "",
   };
 
   const exitHandler = (e) => {
     e.preventDefault();
-    history.push("/interview-result");
+    history.push("/result");
   };
-
-  //   const resultData = useSelector((state) => state.interviewResult);
-
-  //   let findResult = resultData.find(
-  //     (result) => result.id === selectedResultField.id
-  //   );
-
-  //   const dispatch = useDispatch();
-
-  //   const exitHandler = () => {
-  //     showResultTable();
-  //   };
 
   return (
     <Paper
@@ -83,18 +67,9 @@ const InterviewResultForm = ({
           ...initialValue,
         }}
         validationSchema={schema}
-        onSubmit={
-          (values) => console.log(values)
-          //     {
-          //   if (findResult) {
-          //     dispatch(updateResult(values));
-          //     updateField();
-          //   } else {
-          //     dispatch(AddResult(values));
-          //   }
-          //   showResultTable();
-          // }
-        }
+        onSubmit={(values) => {
+          dispatch(authActions.createInterviewReport(values));
+        }}
       >
         {({
           errors,
@@ -225,57 +200,23 @@ const InterviewResultForm = ({
                   className="invalid-feedback"
                 />
               </Grid>
-              <Grid item md={3} xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   sx={{ width: "100%", mr: 2 }}
                   type="text"
-                  name="experienceInYear"
+                  name="experience"
                   label="Experience"
                   onBlur={handleBlur}
-                  value={values.experienceInYear}
+                  value={values.experience}
                   onChange={handleChange}
                   variant="outlined"
-                  error={Boolean(
-                    touched.experienceInYear && errors.experienceInYear
-                  )}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">Year</InputAdornment>
-                    ),
-                  }}
+                  error={Boolean(touched.experience && errors.experience)}
                   required
                   fullWidth
                 />
                 <ErrorMessage
                   component="div"
-                  name="experienceInYear"
-                  className="invalid-feedback"
-                />
-              </Grid>
-              <Grid item md={3} xs={12}>
-                <TextField
-                  sx={{ width: "100%", mr: 2 }}
-                  type="text"
-                  name="experienceInMonth"
-                  label="Experience"
-                  onBlur={handleBlur}
-                  value={values.experienceInMonth}
-                  onChange={handleChange}
-                  variant="outlined"
-                  error={Boolean(
-                    touched.experienceInMonth && errors.experienceInMonth
-                  )}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">Month</InputAdornment>
-                    ),
-                  }}
-                  required
-                  fullWidth
-                />
-                <ErrorMessage
-                  component="div"
-                  name="experienceInMonth"
+                  name="experience"
                   className="invalid-feedback"
                 />
               </Grid>
@@ -287,13 +228,13 @@ const InterviewResultForm = ({
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    name="round"
+                    name="rounds"
                     label="Round"
                     onBlur={handleBlur}
                     sx={{ textAlign: "left" }}
-                    value={values.round}
+                    value={values.rounds}
                     onChange={handleChange}
-                    error={Boolean(touched.round && errors.round)}
+                    error={Boolean(touched.rounds && errors.rounds)}
                     fullWidth
                     required
                   >
@@ -303,7 +244,7 @@ const InterviewResultForm = ({
                 </FormControl>
                 <ErrorMessage
                   component="div"
-                  name="round"
+                  name="rounds"
                   className="invalid-feedback"
                 />
               </Grid>
@@ -344,18 +285,20 @@ const InterviewResultForm = ({
                 <TextField
                   sx={{ width: "100%", mr: 2 }}
                   type="text"
-                  name="practical"
+                  name="practicalCompletion"
                   label="Practical Completion (0-100)%"
-                  value={values.practical}
+                  value={values.practicalCompletion}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
-                  error={Boolean(touched.practical && errors.practical)}
+                  error={Boolean(
+                    touched.practicalCompletion && errors.practicalCompletion
+                  )}
                   required
                 />
                 <ErrorMessage
                   component="div"
-                  name="practical"
+                  name="practicalCompletion"
                   className="invalid-feedback"
                 />
               </Grid>
@@ -363,18 +306,20 @@ const InterviewResultForm = ({
                 <TextField
                   sx={{ width: "100%", mr: 2 }}
                   type="text"
-                  name="coding"
+                  name="codingStandard"
                   label="Coding Standard (0-100)%"
-                  value={values.coding}
+                  value={values.codingStandard}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
-                  error={Boolean(touched.coding && errors.coding)}
+                  error={Boolean(
+                    touched.codingStandard && errors.codingStandard
+                  )}
                   required
                 />
                 <ErrorMessage
                   component="div"
-                  name="coding"
+                  name="codingStandard"
                   className="invalid-feedback"
                 />
               </Grid>
@@ -384,18 +329,20 @@ const InterviewResultForm = ({
                 <TextField
                   sx={{ width: "100%", mr: 2 }}
                   type="text"
-                  name="technical"
+                  name="technicalRound"
                   label="Technical Completion (0-100)%"
-                  value={values.technical}
+                  value={values.technicalRound}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
-                  error={Boolean(touched.technical && errors.technical)}
+                  error={Boolean(
+                    touched.technicalRound && errors.technicalRound
+                  )}
                   required
                 />
                 <ErrorMessage
                   component="div"
-                  name="technical"
+                  name="technicalRound"
                   className="invalid-feedback"
                 />
               </Grid>
