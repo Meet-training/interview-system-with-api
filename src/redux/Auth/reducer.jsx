@@ -1,6 +1,6 @@
 import actions from "./action";
 
-const initialState = {
+const initState = {
   user: {},
   errorData: {},
   action: null,
@@ -9,7 +9,9 @@ const initialState = {
   loading: false,
 };
 
-export default (state = initialState, action) => {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default (state = initState, action) => {
+  console.log("actions", actions);
   switch (action.type) {
     case actions.LOGIN_REQUEST:
       return {
@@ -39,12 +41,12 @@ export default (state = initialState, action) => {
       };
     case actions.LOGOUT_REQUEST:
       return {
-        ...initialState,
+        ...initState,
         action: action.type,
       };
     case actions.LOGOUT_SUCCESS:
       return {
-        ...initialState,
+        ...initState,
         user: {},
         token: null,
         action: action.type,

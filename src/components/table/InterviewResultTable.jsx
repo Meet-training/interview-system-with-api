@@ -50,6 +50,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // ];
 
 const InterviewResultTable = () => {
+  console.log("render");
   const history = useHistory();
 
   const handleAddResult = (e) => {

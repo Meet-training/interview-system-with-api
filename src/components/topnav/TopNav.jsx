@@ -6,25 +6,17 @@ import { Link } from "react-router-dom";
 
 import Dropdown from "../dropdown/Dropdown";
 
-// import ThemeMenu from "../thememenu/ThemeMenu";
-
-import notifications from "../../assets/JsonData/notification.json";
-
 import user_image from "../../assets/images/tuat.png";
 
 import user_menu from "../../assets/JsonData/user_menus.json";
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import authActions from "../../redux/Auth/action";
 
 const curr_user = {
-  display_name: "Doğukan Taha ",
+  display_name: "User ",
   image: user_image,
 };
-
-const renderNotificationItem = (item, index) => (
-  <div className="notification-item" key={index}>
-    <i className={item.icon}></i>
-    <span>{item.content}</span>
-  </div>
-);
 
 const renderUserToggle = (user) => (
   <div className="topnav__right-user">
@@ -35,16 +27,24 @@ const renderUserToggle = (user) => (
   </div>
 );
 
-const renderUserMenu = (item, index) => (
-  <Link to="/" key={index}>
-    <div className="notification-item">
-      <i className={item.icon}></i>
-      <span>{item.content}</span>
-    </div>
-  </Link>
-);
-
 const Topnav = () => {
+  const dispatch = useDispatch();
+
+  const renderUserMenu = (item, index) => (
+    <Button onClick={logoutHandler}>
+      <Link to="/" key={index}>
+        <div className="notification-item">
+          <i className={item.icon}></i>
+          <span>{item.content}</span>
+        </div>
+      </Link>
+    </Button>
+  );
+  const logoutHandler = () => {
+    localStorage.removeItem("auth_token");
+    dispatch(authActions.logout());
+  };
+
   return (
     <div className="topnav">
       <div className="topnav__search">
@@ -53,17 +53,12 @@ const Topnav = () => {
       </div>
       <div className="topnav__right">
         <div className="topnav__right-item">
-          {/* dropdown here */}
           <Dropdown
             customToggle={() => renderUserToggle(curr_user)}
             contentData={user_menu}
             renderItems={(item, index) => renderUserMenu(item, index)}
           />
         </div>
-
-        {/* <div className="topnav__right-item">
-                    <ThemeMenu/>
-                </div> */}
       </div>
     </div>
   );

@@ -23,8 +23,6 @@ const LoginLayout = () => {
 
   const { email, password } = state;
 
-  const history = useHistory();
-
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
