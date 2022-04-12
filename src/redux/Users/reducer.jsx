@@ -78,6 +78,19 @@ export default (state = initialState, action) => {
         errorData: action.errors || {},
         action: action.type,
       };
+    case actions.DELETE_USERS_DETAIL_REQUEST:
+      return {
+        ...state,
+      };
+    case actions.DELETE_USERS_DETAIL_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case actions.DELETE_USERS_DETAIL_ERROR:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

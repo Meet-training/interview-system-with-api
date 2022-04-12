@@ -3,13 +3,15 @@ import { Formik, ErrorMessage } from "formik";
 import { Typography, Grid, TextField, Button, Paper } from "@mui/material";
 import schema from "../../Validation/UserFormSchema";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import actions from "../../redux/Users/actions";
 // import DatePicker from "react-date-picker";
 // import moment from "moment";
 
 const UserForm = () => {
   const history = useHistory();
 
-  const [dob, onChange] = React.useState(new Date());
+  const dispatch = useDispatch();
 
   const initialValue = {
     firstName: "",
@@ -46,7 +48,9 @@ const UserForm = () => {
           ...initialValue,
         }}
         validationSchema={schema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          dispatch(actions.createUsersReport(values));
+        }}
       >
         {({
           errors,

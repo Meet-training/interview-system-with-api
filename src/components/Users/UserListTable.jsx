@@ -13,9 +13,10 @@ import {
 import { styled } from "@mui/material/styles";
 
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import actions from "../../redux/InterviewResult/action";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,26 +38,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-//   createData("Eclair", 262, 16.0, 24, 6.0),
-//   createData("Cupcake", 305, 3.7, 67, 4.3),
-//   createData("Gingerbread", 356, 16.0, 49, 3.9),
-// ];
-
 const UserResultTable = () => {
   const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.users.UsersTable);
+
+  console.log(userData);
 
   const handleAddUser = (e) => {
     e.preventDefault();
     history.push("/add-users");
     console.log("Clicked...");
   };
+
+  React.useEffect(() => {
+    dispatch(actions.getInterviewReport());
+  }, []);
 
   return (
     <Box sx={{ p: 2 }}>

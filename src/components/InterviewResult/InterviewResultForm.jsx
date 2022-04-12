@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -16,28 +16,37 @@ import {
   Paper,
   InputAdornment,
 } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import schema from "../../Validation/InterviewFormSchema";
 import authActions from "../../redux/InterviewResult/action";
+import actions from "../../redux/InterviewResult/action";
 
 const InterviewResultForm = () => {
+  const { _id } = useParams();
+
+  const { InterviewResultDetails } = useSelector(
+    (state) => state.interviewResult
+  );
+
+  console.log("InterviewResultDetails", InterviewResultDetails);
+
   const history = useHistory();
 
   const dispatch = useDispatch();
 
   const initialValue = {
-    date: "",
-    name: "",
-    interviewer: "",
-    technology: [],
-    experience: "",
+    date: InterviewResultDetails.date || "",
+    name: InterviewResultDetails.name || "",
+    interviewer: InterviewResultDetails.interviewer || "",
+    technology: InterviewResultDetails.technology || [],
+    experience: InterviewResultDetails.experience || "",
 
-    rounds: "",
-    communication: "",
-    practicalCompletion: "",
-    codingStandard: "",
-    technicalRound: "",
-    notes: "",
+    rounds: InterviewResultDetails.rounds || "",
+    communication: InterviewResultDetails.communication || "",
+    practicalCompletion: InterviewResultDetails.practicalCompletion || "",
+    codingStandard: InterviewResultDetails.codingStandard || "",
+    technicalRound: InterviewResultDetails.technicalRound || "",
+    notes: InterviewResultDetails.notes || "",
   };
 
   const exitHandler = (e) => {

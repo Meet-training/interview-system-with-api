@@ -1,6 +1,6 @@
-import { all, takeEvery, put } from "redux-saga/effects";
+import { all, takeEvery, put, takeLatest } from "redux-saga/effects";
 import actions from "./action";
-import { axiosGet, axiosPost } from "../axioshelper";
+import { axiosGet, axiosPost, axiosDelete, axiosPut } from "../axioshelper";
 import { push } from "connected-react-router";
 
 /**
@@ -9,7 +9,7 @@ import { push } from "connected-react-router";
 export function* createInterviewReport({ queryParams }) {
   try {
     const { data } = yield axiosPost(queryParams, `submitInterView`);
-    console.log("data", data);
+    // console.log("data", data);
     yield put(actions.createInterviewReportSuccess(data));
     yield put(actions.getInterviewReport());
     yield put(push("/result"));
@@ -36,22 +36,38 @@ export function* getInterviewReport() {
 }
 
 /**
- * Request to detail interview report.
+ * Request to get single detail of interview result.
  */
-export function* interviewDetail({ id }) {
+export function* getSingleInterviewResultData({ id }) {
+  console.log("userid", id);
   try {
-    const { data } = yield axiosGet(`member/${id}`);
-    yield put(actions.interviewDetailSuccess(data));
+    const { data } = yield axiosGet(`getInterViewResultDetails/${id}`);
+    yield put(actions.getSingleInterviewResultSuccess(data));
   } catch (error) {
-    yield put(actions.interviewDetailFailure(error.message, error.data || {}));
+    yield put(
+      actions.getSingleInterviewResultFailure(error.message, error.data || {})
+    );
   }
 }
+
+/**
+ * Request to delete interview result.
+ */
+
+export function* deleteInterviewResult({ id }) {
+  // console.log("id", id);
+  const { data } = yield axiosDelete(`deleteInterViewResult/${id}`);
+  yield put(actions.getInterviewReport(data));
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(actions.CREATE_INTERVIEW_REPORT_REQUEST, createInterviewReport),
-  ]);
-  yield all([
     takeEvery(actions.GET_INTERVIEW_REPORT_REQUEST, getInterviewReport),
+    takeEvery(
+      actions.GET_SINGLE_INTERVIEW_RESULT_REQUEST,
+      getSingleInterviewResultData
+    ),
+    takeEvery(actions.DELETE_INTERVIEW_DETAIL_REQUEST, deleteInterviewResult),
   ]);
-  yield all([takeEvery(actions.INTERVIEW_DETAIL_REQUEST, interviewDetail)]);
 }

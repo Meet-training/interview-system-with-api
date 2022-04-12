@@ -10,6 +10,10 @@ const actions = {
   USERS_DETAIL_REQUEST: "USERS_DETAIL_REQUEST",
   USERS_DETAIL_SUCCESS: "USERS_DETAIL_SUCCESS",
   USERS_DETAIL_ERROR: "USERS_DETAIL_ERROR",
+
+  DELETE_USERS_DETAIL_REQUEST: "DELETE_USERS_DETAIL_REQUEST",
+  DELETE_USERS_DETAIL_SUCCESS: "DELETE_USERS_DETAIL_SUCCESS",
+  DELETE_USERS_DETAIL_ERROR: "DELETE_USERS_DETAIL_ERROR",
   /**
    * request to create Users result report.
    */
@@ -74,6 +78,25 @@ const actions = {
    */
   usersDetailFailure: (payload = "", errors = {}) => ({
     type: actions.USERS_DETAIL_ERROR,
+    payload,
+    errors,
+  }),
+
+  /**
+   * request delete .
+   */
+  deleteUsers: (id) => ({
+    type: actions.DELETE_USERS_DETAIL_REQUEST,
+    id,
+  }),
+
+  deleteUsersSuccess: (payload) => ({
+    type: actions.DELETE_USERS_DETAIL_SUCCESS,
+    payload,
+  }),
+
+  deleteUsersError: (payload = "", errors = {}) => ({
+    type: actions.DELETE_USERS_DETAIL_ERROR,
     payload,
     errors,
   }),

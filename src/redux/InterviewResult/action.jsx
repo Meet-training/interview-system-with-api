@@ -7,9 +7,18 @@ const actions = {
   GET_INTERVIEW_REPORT_SUCCESS: "GET_INTERVIEW_REPORT_SUCCESS",
   GET_INTERVIEW_REPORT_ERROR: "GET_INTERVIEW_REPORT_ERROR",
 
-  INTERVIEW_DETAIL_REQUEST: "INTERVIEW_DETAIL_REQUEST",
-  INTERVIEW_DETAIL_SUCCESS: "INTERVIEW_DETAIL_SUCCESS",
-  INTERVIEW_DETAIL_ERROR: "INTERVIEW_DETAIL_ERROR",
+  GET_SINGLE_INTERVIEW_RESULT_REQUEST: "GET_SINGLE_INTERVIEW_RESULT_REQUEST",
+  GET_SINGLE_INTERVIEW_RESULT_SUCCESS: "GET_SINGLE_INTERVIEW_RESULT_SUCCESS",
+  GET_SINGLE_INTERVIEW_RESULT_ERROR: "GET_SINGLE_INTERVIEW_RESULT_ERROR",
+
+  UPDATE_INTERVIEW_DETIAL_REQUEST: "UPDATE_INTERVIEW_DETIAL_REQUEST",
+  UPDATE_INTERVIEW_DETIAL_SUCCESS: "UPDATE_INTERVIEW_DETIAL_SUCCESS",
+  UPDATE_INTERVIEW_DETIAL_ERROR: "UPDATE_INTERVIEW_DETIAL_ERROR",
+
+  DELETE_INTERVIEW_DETAIL_REQUEST: "DELETE_INTERVIEW_DETAIL_REQUEST",
+  DELETE_INTERVIEW_DETAIL_SUCCESS: "DELETE_INTERVIEW_DETAIL_SUCCESS",
+  DELETE_INTERVIEW_DETAIL_ERROR: "DELETE_INTERVIEW_DETAIL_ERROR",
+
   /**
    * request to create interview result report.
    */
@@ -56,24 +65,37 @@ const actions = {
   /**
    * request to deport.
    */
-  interviewDetail: (id) => ({
-    type: actions.INTERVIEW_DETAIL_REQUEST,
+  getSingleInterviewResultRequest: (id) => ({
+    type: actions.GET_SINGLE_INTERVIEW_RESULT_REQUEST,
     id,
   }),
 
-  /**
-   * when detail report is successfull.
-   */
-  interviewDetailSuccess: (payload = {}) => ({
-    type: actions.INTERVIEW_DETAIL_SUCCESS,
+  getSingleInterviewResultSuccess: (payload = {}) => ({
+    type: actions.GET_SINGLE_INTERVIEW_RESULT_SUCCESS,
     payload,
   }),
 
+  getSingleInterviewResultFailure: (payload = "", errors = {}) => ({
+    type: actions.GET_SINGLE_INTERVIEW_RESULT_ERROR,
+    payload,
+    errors,
+  }),
+
   /**
-   * when something went wrong with detail report.
+   * request delete .
    */
-  interviewDetailFailure: (payload = "", errors = {}) => ({
-    type: actions.INTERVIEW_DETAIL_ERROR,
+  deleteInterviewResult: (id) => ({
+    type: actions.DELETE_INTERVIEW_DETAIL_REQUEST,
+    id,
+  }),
+
+  deleteInterviewResultSuccess: (payload) => ({
+    type: actions.DELETE_INTERVIEW_DETAIL_SUCCESS,
+    payload,
+  }),
+
+  deleteInterviewResultError: (payload = "", errors = {}) => ({
+    type: actions.DELETE_INTERVIEW_DETAIL_ERROR,
     payload,
     errors,
   }),

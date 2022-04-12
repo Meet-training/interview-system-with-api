@@ -8,9 +8,10 @@ import { push } from "connected-react-router";
  */
 export function* createUsersReport({ queryParams }) {
   try {
-    const { data } = yield axiosPost(queryParams, `member/create`);
+    const { data } = yield axiosPost(queryParams, `register`);
     yield put(actions.createUsersReportSuccess(data));
-    yield put(push("/members"));
+    yield put(actions.getUsersReport());
+    yield put(push("/users"));
   } catch (error) {
     yield put(
       actions.createUsersReportFailure(error.message, error.data || {})
@@ -42,6 +43,7 @@ export function* usersDetail({ id }) {
     yield put(actions.usersDetailFailure(error.message, error.data || {}));
   }
 }
+
 export default function* rootSaga() {
   yield all([
     takeEvery(actions.CREATE_USERS_REPORT_REQUEST, createUsersReport),

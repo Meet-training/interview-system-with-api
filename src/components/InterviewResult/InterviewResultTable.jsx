@@ -16,10 +16,11 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 
 import { useHistory } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Edit } from "@mui/icons-material";
+import actions from "../../redux/InterviewResult/action";
+import { useParams } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -42,16 +43,33 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const InterviewResultTable = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
   const resultlist = useSelector(
     (state) => state.interviewResult.InterviewResultTable
   );
   console.log(resultlist);
   const history = useHistory();
 
+  React.useEffect(() => {
+    dispatch(actions.getInterviewReport());
+  }, []);
+
+  const deleteResultHandler = (id) => {
+    // console.log("Clickeedddd....", id);
+    dispatch(actions.deleteInterviewResult(id));
+  };
+
   const handleAddResult = (e) => {
     e.preventDefault();
     history.push("/add-result");
     console.log("Clicked...");
+  };
+
+  const editHandler = () => {
+    dispatch(actions.getSingleInterviewResultRequest(id));
+    history.push("/edit-result/${id}");
   };
 
   return (
@@ -88,9 +106,7 @@ const InterviewResultTable = () => {
               <StyledTableCell>Date</StyledTableCell>
               <StyledTableCell align="center">Candidate</StyledTableCell>
               <StyledTableCell align="center">Interviewer</StyledTableCell>
-              <StyledTableCell align="center">Technology</StyledTableCell>
-              <StyledTableCell align="center">Experience</StyledTableCell>
-              <StyledTableCell align="center">Round</StyledTableCell>
+
               {/* <StyledTableCell align="center">Communication</StyledTableCell> */}
               <StyledTableCell align="center">
                 Practical Completion
@@ -103,6 +119,7 @@ const InterviewResultTable = () => {
               <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {resultlist.map((row) => (
               <StyledTableRow key={`${row.id}`}>
@@ -113,13 +130,7 @@ const InterviewResultTable = () => {
                 <StyledTableCell align="center">
                   {row.interviewer}
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.technology}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.experience}
-                </StyledTableCell>
-                <StyledTableCell align="center">{row.rounds}</StyledTableCell>
+
                 {/* <StyledTableCell align="center">
                   {row.communication}
                 </StyledTableCell> */}
@@ -134,16 +145,21 @@ const InterviewResultTable = () => {
                 </StyledTableCell>
                 {/* <StyledTableCell align="center">{row.notes}</StyledTableCell> */}
                 <StyledTableCell align="center">
-                  <Button>
+                  <Button onClick={() => editHandler(row._id)}>
                     <EditIcon sx={{ color: "mediumseagreen" }} />
                   </Button>
-                  <Button onClick={deleteResultHandler}>
+                  <Button onClick={() => deleteResultHandler(row._id)}>
                     <DeleteIcon sx={{ color: "red" }} />
                   </Button>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
+          {resultlist.length === 0 && (
+            <Typography variant="h6" sx={{ color: "red", my: 2 }}>
+              No Record Found!
+            </Typography>
+          )}
         </Table>
       </TableContainer>
     </Box>

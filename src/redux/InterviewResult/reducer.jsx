@@ -1,7 +1,7 @@
 import actions from "./action";
 
 const initialState = {
-  candidate: {},
+  Interview: {},
   InterviewResultTable: [],
   InterviewResultDetails: {},
   errorData: {},
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log("action", action);
+  // console.log("action", action);
   switch (action.type) {
     case actions.CREATE_INTERVIEW_REPORT_REQUEST:
       return {
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        candidate: action.payload,
+        Interview: action.payload,
         loading: false,
         action: action.type,
       };
@@ -55,29 +55,47 @@ export default (state = initialState, action) => {
         errorData: action.errors || {},
         action: action.type,
       };
-    case actions.INTERVIEW_DETAIL_REQUEST:
+    case actions.GET_SINGLE_INTERVIEW_RESULT_REQUEST:
       return {
         ...state,
         errorData: {},
         loading: true,
         message: null,
         id: "",
+
         action: action.type,
       };
-    case actions.INTERVIEW_DETAIL_SUCCESS:
+    case actions.GET_SINGLE_INTERVIEW_RESULT_SUCCESS: {
+      console.log("action.payload", action.payload);
       return {
         ...state,
         loading: false,
-        InterviewResultDetails: action.payload.data,
+        InterviewResultDetails: action.payload,
         action: action.type,
       };
-    case actions.INTERVIEW_DETAIL_ERROR:
+    }
+
+    case actions.GET_SINGLE_INTERVIEW_RESULT_ERROR:
       return {
         ...state,
         loading: false,
         message: action.payload,
         errorData: action.errors || {},
         action: action.type,
+      };
+
+    case actions.DELETE_INTERVIEW_DETAIL_REQUEST:
+      return {
+        ...state,
+      };
+    case actions.DELETE_INTERVIEW_DETAIL_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case actions.DELETE_INTERVIEW_DETAIL_ERROR:
+      return {
+        ...state,
       };
     default:
       return state;
