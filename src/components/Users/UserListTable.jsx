@@ -16,7 +16,9 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
-import actions from "../../redux/InterviewResult/action";
+import actions from "../../redux/Users/actions";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,13 +51,20 @@ const UserResultTable = () => {
 
   const handleAddUser = (e) => {
     e.preventDefault();
-    history.push("/add-users");
+    history.push("/addUsers");
     console.log("Clicked...");
   };
 
   React.useEffect(() => {
-    dispatch(actions.getInterviewReport());
+    dispatch(actions.getUsersReport());
   }, []);
+
+  const editHandler = () => {};
+
+  const deleteResultHandler = (id) => {
+    // console.log("Clickeedddd....", id);
+    dispatch(actions.deleteUsers(id));
+  };
 
   return (
     <Box sx={{ p: 2 }}>
@@ -88,25 +97,27 @@ const UserResultTable = () => {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead sx={{ bgcolor: "#999c19" }}>
             <TableRow>
-              <StyledTableCell>Birth Date</StyledTableCell>
-              <StyledTableCell align="center">FirstName</StyledTableCell>
-              <StyledTableCell align="center">LastName</StyledTableCell>
-              <StyledTableCell align="center">Email</StyledTableCell>
+              <StyledTableCell align="left">FirstName</StyledTableCell>
+              <StyledTableCell align="left">LastName</StyledTableCell>
+              <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
-          {/* <TableBody>
-            {rows.map((row) => (
+          <TableBody>
+            {userData.map((row) => (
               <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row">
-                  {row.name}
+                <StyledTableCell align="left">{row.first_name}</StyledTableCell>
+                <StyledTableCell align="left">{row.last_name}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <Button onClick={() => editHandler(row._id)}>
+                    <EditIcon sx={{ color: "mediumseagreen" }} />
+                  </Button>
+                  <Button onClick={() => deleteResultHandler(row._id)}>
+                    <DeleteIcon sx={{ color: "red" }} />
+                  </Button>
                 </StyledTableCell>
-                <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                <StyledTableCell align="center">{row.protein}</StyledTableCell>
               </StyledTableRow>
             ))}
-          </TableBody> */}
+          </TableBody>
         </Table>
       </TableContainer>
     </Box>

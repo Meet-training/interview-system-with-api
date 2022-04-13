@@ -14,40 +14,46 @@ import {
   TextField,
   Button,
   Paper,
-  InputAdornment,
 } from "@mui/material";
 import { useHistory, useParams } from "react-router-dom";
 import schema from "../../Validation/InterviewFormSchema";
 import authActions from "../../redux/InterviewResult/action";
-import actions from "../../redux/InterviewResult/action";
 
 const InterviewResultForm = () => {
-  const { _id } = useParams();
+  const { id } = useParams();
 
-  const { InterviewResultDetails } = useSelector(
+  const { InterviewResultDetails, action } = useSelector(
     (state) => state.interviewResult
   );
-
-  console.log("InterviewResultDetails", InterviewResultDetails);
 
   const history = useHistory();
 
   const dispatch = useDispatch();
 
-  const initialValue = {
-    date: InterviewResultDetails.date || "",
+  let initialValue = {
+    date: InterviewResultDetails?.date || "",
     name: InterviewResultDetails.name || "",
-    interviewer: InterviewResultDetails.interviewer || "",
+    interviewer: InterviewResultDetails.interviewer || [],
     technology: InterviewResultDetails.technology || [],
     experience: InterviewResultDetails.experience || "",
-
     rounds: InterviewResultDetails.rounds || "",
     communication: InterviewResultDetails.communication || "",
     practicalCompletion: InterviewResultDetails.practicalCompletion || "",
     codingStandard: InterviewResultDetails.codingStandard || "",
     technicalRound: InterviewResultDetails.technicalRound || "",
     notes: InterviewResultDetails.notes || "",
+    id: InterviewResultDetails.id || "",
   };
+
+  // useEffect(() => {
+  //   dispatch(authActions.getSingleInterviewResultRequest(id));
+  // }, [dispatch, id]);
+
+  useEffect(() => {
+    if (InterviewResultDetails) {
+      initialValue = InterviewResultDetails;
+    }
+  }, []);
 
   const exitHandler = (e) => {
     e.preventDefault();
@@ -77,7 +83,14 @@ const InterviewResultForm = () => {
         }}
         validationSchema={schema}
         onSubmit={(values) => {
-          dispatch(authActions.createInterviewReport(values));
+          // debugger;
+          if (action == "GET_SINGLE_INTERVIEW_RESULT_REQUEST") {
+            console.log("Update");
+            dispatch(authActions.updateInterviewResult(values));
+          } else {
+            console.log("Add");
+            dispatch(authActions.createInterviewReport(values));
+          }
         }}
       >
         {({

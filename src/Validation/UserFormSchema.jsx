@@ -7,11 +7,13 @@ const passwordRegex =
   /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 
 const UserFormSchema = Yup.object().shape({
-  firstName: Yup.string()
+  image: Yup.string().required("Please Upload Image!"),
+
+  first_name: Yup.string()
     .min(4, "FirstName at least 4 character required!")
     .required("Please Enter FirstName!"),
 
-  lastName: Yup.string()
+  last_name: Yup.string()
     .min(4, "LastName at least 4 character required!")
     .required("Please Enter LastName!"),
 
@@ -19,7 +21,7 @@ const UserFormSchema = Yup.object().shape({
     .matches(emailRegex, "Must be a valid email!")
     .required("Please Enter Email!"),
 
-  birthdate: Yup.date()
+  dateOfBirth: Yup.date()
     .max(new Date(Date.now() - 567648000000), "You must be at least 18 years")
     .required("Please Select Date! "),
 
@@ -31,9 +33,9 @@ const UserFormSchema = Yup.object().shape({
     .min(8, "Minimun 8 Character Required!")
     .required("Please Enter Password!"),
 
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Password must be same!")
-    .required("Required Field!"),
+  // confirmPassword: Yup.string()
+  //   .oneOf([Yup.ref("password")], "Password must be same!")
+  //   .required("Required Field!"),
 });
 
 export default UserFormSchema;

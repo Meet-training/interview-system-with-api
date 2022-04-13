@@ -1,4 +1,4 @@
-import { all, takeEvery, put, takeLatest } from "redux-saga/effects";
+import { all, takeEvery, put } from "redux-saga/effects";
 import actions from "./action";
 import { axiosGet, axiosPost, axiosDelete, axiosPut } from "../axioshelper";
 import { push } from "connected-react-router";
@@ -40,12 +40,28 @@ export function* getInterviewReport() {
  */
 export function* getSingleInterviewResultData({ id }) {
   console.log("userid", id);
+  // debugger;
   try {
     const { data } = yield axiosGet(`getInterViewResultDetails/${id}`);
     yield put(actions.getSingleInterviewResultSuccess(data));
   } catch (error) {
     yield put(
       actions.getSingleInterviewResultFailure(error.message, error.data || {})
+    );
+  }
+}
+
+/**
+ * Request to update interview result.
+ *
+ */
+export function* updateResultRequest({ id }) {
+  try {
+    const { data } = yield axiosPut(id, `updateInterViewResult/${id}`);
+    yield put(actions.updateInterviewResultSuccess(data));
+  } catch (error) {
+    yield put(
+      actions.updateInterviewResultFailure(error.message, error.data || {})
     );
   }
 }
@@ -68,6 +84,7 @@ export default function* rootSaga() {
       actions.GET_SINGLE_INTERVIEW_RESULT_REQUEST,
       getSingleInterviewResultData
     ),
+    takeEvery(actions.UPDATE_INTERVIEW_DETIAL_REQUEST, updateResultRequest),
     takeEvery(actions.DELETE_INTERVIEW_DETAIL_REQUEST, deleteInterviewResult),
   ]);
 }

@@ -7,9 +7,13 @@ const actions = {
   GET_USERS_REPORT_SUCCESS: "GET_USERS_REPORT_SUCCESS",
   GET_USERS_REPORT_ERROR: "GET_USERS_REPORT_ERROR",
 
-  USERS_DETAIL_REQUEST: "USERS_DETAIL_REQUEST",
-  USERS_DETAIL_SUCCESS: "USERS_DETAIL_SUCCESS",
-  USERS_DETAIL_ERROR: "USERS_DETAIL_ERROR",
+  GET_SINGLE_USERS_REQUEST: "GET_SINGLE_USERS_REQUEST",
+  GET_SINGLE_USERS_SUCCESS: "GET_SINGLE_USERS_SUCCESS",
+  GET_SINGLE_USERS_ERROR: "GET_SINGLE_USERS_ERROR",
+
+  UPDATE_USERS_DETAIL_REQUEST: "UPDATE_USERS_DETAIL_REQUEST",
+  UPDATE_USERS_DETAIL_SUCCESS: "UPDATE_USERS_DETAIL_SUCCESS",
+  UPDATE_USERS_DETAIL_ERROR: "UPDATE_USERS_DETAIL_ERROR",
 
   DELETE_USERS_DETAIL_REQUEST: "DELETE_USERS_DETAIL_REQUEST",
   DELETE_USERS_DETAIL_SUCCESS: "DELETE_USERS_DETAIL_SUCCESS",
@@ -58,26 +62,40 @@ const actions = {
   }),
 
   /**
-   * request to deport.
+   * request to get single user report.
    */
-  usersDetail: (id) => ({
-    type: actions.USERS_DETAIL_REQUEST,
+
+  getSingleUsersRequest: (id) => ({
+    type: actions.GET_SINGLE_USERS_REQUEST,
     id,
   }),
 
-  /**
-   * when detail report is successfull.
-   */
-  usersDetailSuccess: (payload = {}) => ({
-    type: actions.USERS_DETAIL_SUCCESS,
+  getSingleUsersSuccess: (payload = {}) => ({
+    type: actions.GET_SINGLE_USERS_SUCCESS,
     payload,
   }),
 
+  getSingleUsersFailure: (payload = "", errors = {}) => ({
+    type: actions.GET_SINGLE_USERS_ERROR,
+    payload,
+    errors,
+  }),
+
   /**
-   * when something went wrong with detail report.
+   * request to update result.
    */
-  usersDetailFailure: (payload = "", errors = {}) => ({
-    type: actions.USERS_DETAIL_ERROR,
+  updateUsersDetail: (payload) => ({
+    type: actions.UPDATE_USERS_DETAIL_REQUEST,
+    payload,
+  }),
+
+  updateUsersDetailSuccess: (payload = {}) => ({
+    type: actions.UPDATE_USERS_DETAIL_SUCCESS,
+    payload,
+  }),
+
+  updateUsersDetailFailure: (payload = "", errors = {}) => ({
+    type: actions.UPDATE_USERS_DETAIL_ERROR,
     payload,
     errors,
   }),

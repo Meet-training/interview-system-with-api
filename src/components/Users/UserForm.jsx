@@ -5,8 +5,7 @@ import schema from "../../Validation/UserFormSchema";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import actions from "../../redux/Users/actions";
-// import DatePicker from "react-date-picker";
-// import moment from "moment";
+import formdata from "to-formdata";
 
 const UserForm = () => {
   const history = useHistory();
@@ -14,12 +13,13 @@ const UserForm = () => {
   const dispatch = useDispatch();
 
   const initialValue = {
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    birthdate: "",
+    dateOfBirth: "",
     password: "",
-    confirmPassword: "",
+    image: null,
+    role: "",
   };
 
   const exitHandler = (e) => {
@@ -49,7 +49,8 @@ const UserForm = () => {
         }}
         validationSchema={schema}
         onSubmit={(values) => {
-          dispatch(actions.createUsersReport(values));
+          console.log(values);
+          dispatch(actions.createUsersReport(formdata(values)));
         }}
       >
         {({
@@ -69,23 +70,40 @@ const UserForm = () => {
             noValidate
             onSubmit={handleSubmit}
           >
+            <Grid sx={{ mb: 4 }}>
+              <Typography>Upload Image</Typography>
+              <TextField
+                type="file"
+                name="image"
+                value={values.image}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                error={Boolean(touched.image && errors.image)}
+                required
+              />
+              <ErrorMessage
+                component="div"
+                name="image"
+                className="invalid-feedback"
+              />
+            </Grid>
             <Grid container spacing={2}>
               <Grid sx={{ mb: 2 }} item md={6} xs={12}>
                 <TextField
                   sx={{ width: "100%" }}
                   type="text"
-                  name="firstName"
+                  name="first_name"
                   label="First Name"
-                  value={values.firstName}
+                  value={values.first_name}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.first_name && errors.first_name)}
                   variant="outlined"
                   required
                 />
                 <ErrorMessage
                   component="div"
-                  name="firstName"
+                  name="first_name"
                   className="invalid-feedback"
                 />
               </Grid>
@@ -93,18 +111,18 @@ const UserForm = () => {
                 <TextField
                   sx={{ width: "100%" }}
                   type="text"
-                  name="lastName"
+                  name="last_name"
                   label="Last Name"
-                  value={values.lastName}
+                  value={values.last_name}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  error={Boolean(touched.lastName && errors.lastName)}
+                  error={Boolean(touched.last_name && errors.last_name)}
                   variant="outlined"
                   required
                 />
                 <ErrorMessage
                   component="div"
-                  name="lastName"
+                  name="last_name"
                   className="invalid-feedback"
                 />
               </Grid>
@@ -129,23 +147,15 @@ const UserForm = () => {
               />
             </Grid>
             <Grid sx={{ mb: 4 }}>
-              {/* <DatePicker
-                className="form-control"
-                onChange={onChange}
-                value={dob}
-                minDate={moment().subtract(150, "years")._d}
-                maxDate={moment().subtract(18, "years")._d}
-              /> */}
-
               <TextField
                 sx={{ width: "100%" }}
                 type="date"
-                name="birthdate"
+                name="dateOfBirth"
                 label="Birth Date"
-                value={values.birthdate}
+                value={values.dateOfBirth}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={Boolean(touched.birthdate && errors.birthdate)}
+                error={Boolean(touched.dateOfBirth && errors.dateOfBirth)}
                 variant="outlined"
                 InputLabelProps={{
                   shrink: true,
@@ -154,14 +164,14 @@ const UserForm = () => {
               />
               <ErrorMessage
                 component="div"
-                name="birthdate"
+                name="dateOfBirth"
                 className="invalid-feedback"
               />
             </Grid>
             <Grid sx={{ mb: 4 }}>
               <TextField
                 sx={{ width: "100%" }}
-                type="text"
+                type="password"
                 name="password"
                 label="Password"
                 value={values.password}
@@ -177,27 +187,7 @@ const UserForm = () => {
                 className="invalid-feedback"
               />
             </Grid>
-            <Grid sx={{ mb: 3 }}>
-              <TextField
-                sx={{ width: "100%" }}
-                type="text"
-                name="confirmPassword"
-                label="Confirm Password"
-                value={values.confirmPassword}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={Boolean(
-                  touched.confirmPassword && errors.confirmPassword
-                )}
-                variant="outlined"
-                required
-              />
-              <ErrorMessage
-                component="div"
-                name="confirmPassword"
-                className="invalid-feedback"
-              />
-            </Grid>
+
             <Grid
               sx={{
                 display: "flex",

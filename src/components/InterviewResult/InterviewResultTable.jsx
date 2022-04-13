@@ -49,27 +49,28 @@ const InterviewResultTable = () => {
   const resultlist = useSelector(
     (state) => state.interviewResult.InterviewResultTable
   );
-  console.log(resultlist);
+  // console.log(resultlist);
   const history = useHistory();
 
   React.useEffect(() => {
     dispatch(actions.getInterviewReport());
   }, []);
 
+  const handleAddResult = (e) => {
+    e.preventDefault();
+    history.push("/addResult");
+    // console.log("Clicked...");
+  };
+
+  const editHandler = (id) => {
+    // debugger;
+    dispatch(actions.getSingleInterviewResultRequest(id));
+    history.push(`/editResult/${id}`);
+  };
+
   const deleteResultHandler = (id) => {
     // console.log("Clickeedddd....", id);
     dispatch(actions.deleteInterviewResult(id));
-  };
-
-  const handleAddResult = (e) => {
-    e.preventDefault();
-    history.push("/add-result");
-    console.log("Clicked...");
-  };
-
-  const editHandler = () => {
-    dispatch(actions.getSingleInterviewResultRequest(id));
-    history.push("/edit-result/${id}");
   };
 
   return (
@@ -123,9 +124,7 @@ const InterviewResultTable = () => {
           <TableBody>
             {resultlist.map((row) => (
               <StyledTableRow key={`${row.id}`}>
-                <StyledTableCell component="th" scope="row">
-                  {row.date}
-                </StyledTableCell>
+                <StyledTableCell>{row.date}</StyledTableCell>
                 <StyledTableCell align="center">{row.name}</StyledTableCell>
                 <StyledTableCell align="center">
                   {row.interviewer}
@@ -155,12 +154,12 @@ const InterviewResultTable = () => {
               </StyledTableRow>
             ))}
           </TableBody>
-          {resultlist.length === 0 && (
-            <Typography variant="h6" sx={{ color: "red", my: 2 }}>
-              No Record Found!
-            </Typography>
-          )}
         </Table>
+        {resultlist.length === 0 && (
+          <Typography variant="h6" sx={{ color: "red", my: 2 }}>
+            No Record Found!
+          </Typography>
+        )}
       </TableContainer>
     </Box>
   );

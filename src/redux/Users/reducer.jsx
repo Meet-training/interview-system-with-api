@@ -54,29 +54,37 @@ export default (state = initialState, action) => {
         errorData: action.errors || {},
         action: action.type,
       };
-    case actions.USERS_DETAIL_REQUEST:
+    case actions.GET_SINGLE_USERS_REQUEST:
       return {
         ...state,
         errorData: {},
         loading: true,
         message: null,
         id: "",
+
         action: action.type,
       };
-    case actions.USERS_DETAIL_SUCCESS:
+    case actions.GET_SINGLE_USERS_SUCCESS: {
+      console.log("action.payload", action.payload);
       return {
         ...state,
         loading: false,
         UsersDetails: action.payload.data,
         action: action.type,
       };
-    case actions.USERS_DETAIL_ERROR:
+    }
+
+    case actions.GET_SINGLE_USERS_ERROR:
       return {
         ...state,
         loading: false,
         message: action.payload,
         errorData: action.errors || {},
         action: action.type,
+      };
+    case actions.UPDATE_USERS_DETAIL_SUCCESS:
+      return {
+        ...state,
       };
     case actions.DELETE_USERS_DETAIL_REQUEST:
       return {

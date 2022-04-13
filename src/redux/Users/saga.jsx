@@ -1,6 +1,6 @@
 import { all, takeEvery, put } from "redux-saga/effects";
 import actions from "./actions";
-import { axiosGet, axiosPost } from "../axioshelper";
+import { axiosGet, axiosPost, axiosPut, axiosDelete } from "../axioshelper";
 import { push } from "connected-react-router";
 
 /**
@@ -25,7 +25,7 @@ export function* createUsersReport({ queryParams }) {
  */
 export function* getUsersReport() {
   try {
-    const { data } = yield axiosGet(`member`);
+    const { data } = yield axiosGet(`getAllUsersDetails`);
     yield put(actions.getUsersReportSuccess(data));
   } catch (error) {
     yield put(actions.getUsersReportFailure(error.message, error.data || {}));
@@ -33,21 +33,48 @@ export function* getUsersReport() {
 }
 
 /**
- * Request to detail users report.
+ * Request to detail of single users report.
  */
-export function* usersDetail({ id }) {
+export function* getSingleUsersReport({ id }) {
   try {
-    const { data } = yield axiosGet(`member/${id}`);
-    yield put(actions.usersDetailSuccess(data));
+    const { data } = yield axiosGet(`getUserDetails/${id}`);
+    yield put(actions.getSingleUsersSuccess(data));
   } catch (error) {
-    yield put(actions.usersDetailFailure(error.message, error.data || {}));
+    yield put(actions.getSingleUsersFailure(error.message, error.data || {}));
   }
+}
+
+/**
+ * Request to update detail of users report.
+ */
+
+export function* updateUserReport({ id }) {
+  try {
+    const { data } = yield axiosPut(id, `updateUserDetails/${id}`);
+    yield put(actions.updateUsersDetailSuccess(data));
+  } catch (error) {
+    yield put(
+      actions.updateUsersDetailFailure(error.message, error.data || {})
+    );
+  }
+}
+
+/**
+ * Request to delete detail of users report.
+ */
+
+export function* deleteUserReport({ id }) {
+  // console.log("id", id);
+  const { data } = yield axiosDelete(`deleteUser/${id}`);
+  yield put(actions.getUsersReport(data));
 }
 
 export default function* rootSaga() {
   yield all([
     takeEvery(actions.CREATE_USERS_REPORT_REQUEST, createUsersReport),
+    takeEvery(actions.GET_USERS_REPORT_REQUEST, getUsersReport),
+    takeEvery(actions.GET_SINGLE_USERS_REQUEST, getSingleUsersReport),
+    takeEvery(actions.UPDATE_USERS_DETAIL_REQUEST, updateUserReport),
+    takeEvery(actions.DELETE_USERS_DETAIL_REQUEST, deleteUserReport),
   ]);
-  yield all([takeEvery(actions.GET_USERS_REPORT_REQUEST, getUsersReport)]);
-  yield all([takeEvery(actions.USERS_DETAIL_REQUEST, usersDetail)]);
 }

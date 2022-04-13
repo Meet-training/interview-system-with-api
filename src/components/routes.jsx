@@ -38,12 +38,12 @@ const Routes = () => {
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/add-result"
+        path="/addResult"
         component={InterviewResultForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/edit-result/:id"
+        path="/editResult/:id"
         component={InterviewResultForm}
         isLoggedIn={isLoggedIn}
       />
@@ -53,7 +53,12 @@ const Routes = () => {
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/add-users"
+        path="/addUsers"
+        component={UserForm}
+        isLoggedIn={isLoggedIn}
+      />
+      <RestrictedRoute
+        path="/editUsers/:id"
         component={UserForm}
         isLoggedIn={isLoggedIn}
       />

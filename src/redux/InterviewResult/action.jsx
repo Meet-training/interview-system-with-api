@@ -82,6 +82,26 @@ const actions = {
   }),
 
   /**
+   * request update .
+   */
+
+  updateInterviewResult: (id) => ({
+    type: actions.UPDATE_INTERVIEW_DETIAL_REQUEST,
+    id,
+  }),
+
+  updateInterviewResultSuccess: (payload = {}) => ({
+    type: actions.UPDATE_INTERVIEW_DETIAL_SUCCESS,
+    payload,
+  }),
+
+  updateInterviewResultFailure: (payload = "", errors = {}) => ({
+    type: actions.UPDATE_INTERVIEW_DETIAL_ERROR,
+    payload,
+    errors,
+  }),
+
+  /**
    * request delete .
    */
   deleteInterviewResult: (id) => ({

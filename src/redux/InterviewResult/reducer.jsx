@@ -70,7 +70,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        InterviewResultDetails: action.payload,
+        InterviewResultDetails: action.payload.data,
         action: action.type,
       };
     }
@@ -83,20 +83,16 @@ export default (state = initialState, action) => {
         errorData: action.errors || {},
         action: action.type,
       };
-
-    case actions.DELETE_INTERVIEW_DETAIL_REQUEST:
+    case actions.UPDATE_INTERVIEW_DETIAL_SUCCESS:
       return {
         ...state,
       };
+
     case actions.DELETE_INTERVIEW_DETAIL_SUCCESS:
       return {
         ...state,
       };
 
-    case actions.DELETE_INTERVIEW_DETAIL_ERROR:
-      return {
-        ...state,
-      };
     default:
       return state;
   }

@@ -11,12 +11,12 @@ export function clearToken() {
  */
 export function getToken() {
   try {
-    console.log("try");
+    // console.log("try");
     const authToken = localStorage.getItem("auth_token");
     const user = localStorage.user ? JSON.parse(localStorage.user) : null;
     return new Map({ authToken, user });
   } catch (err) {
-    console.log("catch");
+    // console.log("catch");
     clearToken();
     return new Map();
   }
