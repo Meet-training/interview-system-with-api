@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Table,
   TableBody,
@@ -13,16 +14,21 @@ import {
 import { styled } from "@mui/material/styles";
 
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+
 import { useSelector, useDispatch } from "react-redux";
+
 import { useHistory } from "react-router-dom";
+
 import AddIcon from "@mui/icons-material/Add";
+
 import actions from "../../redux/Users/actions";
+
 import EditIcon from "@mui/icons-material/Edit";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    // backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -47,22 +53,21 @@ const UserResultTable = () => {
 
   const userData = useSelector((state) => state.users.UsersTable);
 
-  console.log(userData);
-
   const handleAddUser = (e) => {
     e.preventDefault();
     history.push("/addUsers");
-    console.log("Clicked...");
   };
 
   React.useEffect(() => {
     dispatch(actions.getUsersReport());
   }, []);
 
-  const editHandler = () => {};
+  const editHandler = (id) => {
+    dispatch(actions.getSingleUsersRequest(id));
+    history.push(`/editUsers/${id}`);
+  };
 
   const deleteResultHandler = (id) => {
-    // console.log("Clickeedddd....", id);
     dispatch(actions.deleteUsers(id));
   };
 
@@ -93,6 +98,7 @@ const UserResultTable = () => {
           Add Users
         </Button>
       </Box>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead sx={{ bgcolor: "#999c19" }}>
@@ -102,6 +108,7 @@ const UserResultTable = () => {
               <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {userData.map((row) => (
               <StyledTableRow key={row.name}>
@@ -119,6 +126,12 @@ const UserResultTable = () => {
             ))}
           </TableBody>
         </Table>
+
+        {userData.length === 0 && (
+          <Typography variant="h6" sx={{ color: "red", my: 2 }}>
+            No Record Found!
+          </Typography>
+        )}
       </TableContainer>
     </Box>
   );

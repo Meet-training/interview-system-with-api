@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import { styled } from "@mui/material/styles";
+
 import {
   Table,
   TableBody,
@@ -15,16 +17,21 @@ import {
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 
 import { useHistory } from "react-router-dom";
+
 import AddIcon from "@mui/icons-material/Add";
+
 import { useSelector, useDispatch } from "react-redux";
+
 import EditIcon from "@mui/icons-material/Edit";
+
 import DeleteIcon from "@mui/icons-material/Delete";
+
 import actions from "../../redux/InterviewResult/action";
+
 import { useParams } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    // backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -49,7 +56,7 @@ const InterviewResultTable = () => {
   const resultlist = useSelector(
     (state) => state.interviewResult.InterviewResultTable
   );
-  // console.log(resultlist);
+
   const history = useHistory();
 
   React.useEffect(() => {
@@ -59,17 +66,14 @@ const InterviewResultTable = () => {
   const handleAddResult = (e) => {
     e.preventDefault();
     history.push("/addResult");
-    // console.log("Clicked...");
   };
 
   const editHandler = (id) => {
-    // debugger;
     dispatch(actions.getSingleInterviewResultRequest(id));
     history.push(`/editResult/${id}`);
   };
 
   const deleteResultHandler = (id) => {
-    // console.log("Clickeedddd....", id);
     dispatch(actions.deleteInterviewResult(id));
   };
 
@@ -100,6 +104,7 @@ const InterviewResultTable = () => {
           Add Result
         </Button>
       </Box>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead sx={{ bgcolor: "#999c19" }}>
@@ -107,8 +112,6 @@ const InterviewResultTable = () => {
               <StyledTableCell>Date</StyledTableCell>
               <StyledTableCell align="center">Candidate</StyledTableCell>
               <StyledTableCell align="center">Interviewer</StyledTableCell>
-
-              {/* <StyledTableCell align="center">Communication</StyledTableCell> */}
               <StyledTableCell align="center">
                 Practical Completion
               </StyledTableCell>
@@ -116,7 +119,6 @@ const InterviewResultTable = () => {
               <StyledTableCell align="center">
                 Technical Completion
               </StyledTableCell>
-              {/* <StyledTableCell align="center">Notes</StyledTableCell> */}
               <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -129,10 +131,6 @@ const InterviewResultTable = () => {
                 <StyledTableCell align="center">
                   {row.interviewer}
                 </StyledTableCell>
-
-                {/* <StyledTableCell align="center">
-                  {row.communication}
-                </StyledTableCell> */}
                 <StyledTableCell align="center">
                   {row.practicalCompletion}
                 </StyledTableCell>
@@ -142,7 +140,6 @@ const InterviewResultTable = () => {
                 <StyledTableCell align="center">
                   {row.technicalRound}
                 </StyledTableCell>
-                {/* <StyledTableCell align="center">{row.notes}</StyledTableCell> */}
                 <StyledTableCell align="center">
                   <Button onClick={() => editHandler(row._id)}>
                     <EditIcon sx={{ color: "mediumseagreen" }} />

@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 
 import "./sidebar.css";
 
-import logo from "../../assets/images/logo.png";
-
 import sidebar_items from "../../assets/JsonData/sidebar_routes.json";
+
 import { Divider } from "@mui/material";
+
+import { useSelector } from "react-redux";
 
 const SidebarItem = (props) => {
   const active = props.active ? "active" : "";
@@ -23,26 +24,38 @@ const SidebarItem = (props) => {
 };
 
 const Sidebar = (props) => {
+  const isShowUser = useSelector((state) => state.auth.user?.role?.name);
+
+  function ShowUserCondition() {
+    if (isShowUser === "admin" || isShowUser === "hr") {
+      return true;
+    }
+    return false;
+  }
   const activeItem = sidebar_items.findIndex(
     (item) => item.route === props.location.pathname
   );
 
   return (
     <div className="sidebar">
-      <div className="sidebar__logo">
-        {/* <img src={logo} alt="company logo" /> */}
-        Interview System
-      </div>
+      <div className="sidebar__logo">Interview System</div>
       <Divider variant="middle" sx={{ mb: 2 }} />
-      {sidebar_items.map((item, index) => (
-        <Link to={item.route} key={index}>
+      <Link to="/result">
+        <SidebarItem
+          title="Interview Result"
+          icon="bx bx-table"
+          active={0 === activeItem}
+        />
+      </Link>
+      {ShowUserCondition() && (
+        <Link to="/users">
           <SidebarItem
-            title={item.display_name}
-            icon={item.icon}
-            active={index === activeItem}
+            title="Users"
+            icon="bx bxs-user"
+            active={1 === activeItem}
           />
         </Link>
-      ))}
+      )}
     </div>
   );
 };

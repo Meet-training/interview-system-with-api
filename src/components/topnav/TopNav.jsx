@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import authActions from "../../redux/Auth/action";
 
 const curr_user = {
-  display_name: "User ",
+  display_name: "Admin ",
   image: user_image,
 };
 

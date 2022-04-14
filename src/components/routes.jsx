@@ -1,10 +1,15 @@
 import React from "react";
+
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import UserForm from "./Users/UserForm";
+
 import UserResultTable from "./Users/UserListTable";
+
 import InterviewResultForm from "./InterviewResult/InterviewResultForm";
+
 import InterviewResultTable from "./InterviewResult/InterviewResultTable";
+
 import { useSelector } from "react-redux";
 
 const RestrictedRoute = ({ component: Component, isLoggedIn, ...rest }) => {
@@ -29,7 +34,7 @@ const RestrictedRoute = ({ component: Component, isLoggedIn, ...rest }) => {
 
 const Routes = () => {
   const isLoggedIn = useSelector((state) => state.auth.token !== null);
-  // console.log("isLoggedIn", isLoggedIn);
+
   return (
     <Switch>
       <RestrictedRoute

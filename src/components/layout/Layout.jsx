@@ -30,7 +30,6 @@ const UnRestrictedRoute = ({ component: Component, isLoggedIn, ...rest }) => (
 
 const Layout = () => {
   const isLoggedIn = useSelector((state) => state.auth.token !== null);
-  // console.log("isLoggedIn", isLoggedIn);
 
   return (
     <Switch>

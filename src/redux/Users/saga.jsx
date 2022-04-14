@@ -11,6 +11,7 @@ export function* createUsersReport({ queryParams }) {
     const { data } = yield axiosPost(queryParams, `register`);
     yield put(actions.createUsersReportSuccess(data));
     yield put(actions.getUsersReport());
+    // yield put(actions.getAllUsersReport());
     yield put(push("/users"));
   } catch (error) {
     yield put(
@@ -20,7 +21,7 @@ export function* createUsersReport({ queryParams }) {
 }
 
 /**
- * get all Users.
+ * Request to get all Users.
  *
  */
 export function* getUsersReport() {
@@ -48,10 +49,11 @@ export function* getSingleUsersReport({ id }) {
  * Request to update detail of users report.
  */
 
-export function* updateUserReport({ id }) {
+export function* updateUserReport({ payload, id }) {
   try {
-    const { data } = yield axiosPut(id, `updateUserDetails/${id}`);
+    const { data } = yield axiosPut(payload, `updateUserDetails/${id}`);
     yield put(actions.updateUsersDetailSuccess(data));
+    yield put(push("/users"));
   } catch (error) {
     yield put(
       actions.updateUsersDetailFailure(error.message, error.data || {})
@@ -64,7 +66,6 @@ export function* updateUserReport({ id }) {
  */
 
 export function* deleteUserReport({ id }) {
-  // console.log("id", id);
   const { data } = yield axiosDelete(`deleteUser/${id}`);
   yield put(actions.getUsersReport(data));
 }

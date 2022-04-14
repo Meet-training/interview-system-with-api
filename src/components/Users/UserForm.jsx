@@ -1,25 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { Formik, ErrorMessage } from "formik";
-import { Typography, Grid, TextField, Button, Paper } from "@mui/material";
+
+import {
+  Typography,
+  Grid,
+  TextField,
+  Button,
+  Paper,
+  Select,
+  InputLabel,
+  FormControl,
+  MenuItem,
+} from "@mui/material";
+
 import schema from "../../Validation/UserFormSchema";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+
+import { useHistory, useParams } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import actions from "../../redux/Users/actions";
+
+import roleAction from "../../redux/Role/actions";
+
 import formdata from "to-formdata";
 
 const UserForm = () => {
+  const { UsersDetails, action } = useSelector((state) => state.users);
+
+  const roleData = useSelector((state) => state.roles.Roles);
+
+  const [images, setImages] = useState({});
+
   const history = useHistory();
 
   const dispatch = useDispatch();
 
-  const initialValue = {
-    first_name: "",
-    last_name: "",
-    email: "",
-    dateOfBirth: "",
-    password: "",
-    image: null,
-    role: "",
+  const { id } = useParams();
+
+  let initialValue = {
+    first_name: UsersDetails.first_name || "",
+    last_name: UsersDetails.last_name || "",
+    email: UsersDetails.email || "",
+    dateOfBirth: UsersDetails.dateOfBirth || "",
+    password: UsersDetails.password || "",
+
+    role: UsersDetails.role || "",
+  };
+
+  React.useEffect(() => {
+    dispatch(roleAction.getRoleRequest());
+  }, []);
+
+  const handleImageChange = (e) => {
+    // console.log(e.target.files[0]);
+    setImages(e.target.files[0]);
   };
 
   const exitHandler = (e) => {
@@ -35,7 +71,6 @@ const UserForm = () => {
         display: "flex",
         flexDirection: "column",
         textAlign: "center",
-
         mb: 4,
         mx: 5,
       }}
@@ -48,9 +83,14 @@ const UserForm = () => {
           ...initialValue,
         }}
         validationSchema={schema}
+        enableReinitialize={true}
         onSubmit={(values) => {
           console.log(values);
-          dispatch(actions.createUsersReport(formdata(values)));
+          if (action == "GET_SINGLE_USERS_SUCCESS") {
+            dispatch(actions.updateUsersDetail(values, id));
+          } else {
+            dispatch(actions.createUsersReport(formdata(values)));
+          }
         }}
       >
         {({
@@ -58,14 +98,12 @@ const UserForm = () => {
           handleBlur,
           handleChange,
           handleSubmit,
-
           isValid,
-
           touched,
           values,
         }) => (
           <form
-            autoComplete="on"
+            autoComplete="off"
             method="POST"
             noValidate
             onSubmit={handleSubmit}
@@ -75,9 +113,10 @@ const UserForm = () => {
               <TextField
                 type="file"
                 name="image"
-                value={values.image}
+                value={values.images}
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={handleImageChange}
+                accept="image/*"
                 error={Boolean(touched.image && errors.image)}
                 required
               />
@@ -127,65 +166,92 @@ const UserForm = () => {
                 />
               </Grid>
             </Grid>
-            <Grid sx={{ mb: 4 }}>
-              <TextField
-                sx={{ width: "100%" }}
-                type="email"
-                name="email"
-                label="Email Id"
-                value={values.email}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={Boolean(touched.email && errors.email)}
-                variant="outlined"
-                required
-              />
-              <ErrorMessage
-                component="div"
-                name="email"
-                className="invalid-feedback"
-              />
+            <Grid container spacing={2}>
+              <Grid sx={{ mb: 3 }} item md={6} xs={12}>
+                <TextField
+                  sx={{ width: "100%" }}
+                  type="email"
+                  name="email"
+                  label="Email Id"
+                  value={values.email}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={Boolean(touched.email && errors.email)}
+                  variant="outlined"
+                  required
+                />
+                <ErrorMessage
+                  component="div"
+                  name="email"
+                  className="invalid-feedback"
+                />
+              </Grid>
+              <Grid sx={{ mb: 3 }} item md={6} xs={12}>
+                <TextField
+                  sx={{ width: "100%" }}
+                  type="date"
+                  name="dateOfBirth"
+                  label="Birth Date"
+                  value={values.dateOfBirth}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={Boolean(touched.dateOfBirth && errors.dateOfBirth)}
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  required
+                />
+                <ErrorMessage
+                  component="div"
+                  name="dateOfBirth"
+                  className="invalid-feedback"
+                />
+              </Grid>
             </Grid>
-            <Grid sx={{ mb: 4 }}>
-              <TextField
-                sx={{ width: "100%" }}
-                type="date"
-                name="dateOfBirth"
-                label="Birth Date"
-                value={values.dateOfBirth}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={Boolean(touched.dateOfBirth && errors.dateOfBirth)}
-                variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                required
-              />
-              <ErrorMessage
-                component="div"
-                name="dateOfBirth"
-                className="invalid-feedback"
-              />
-            </Grid>
-            <Grid sx={{ mb: 4 }}>
-              <TextField
-                sx={{ width: "100%" }}
-                type="password"
-                name="password"
-                label="Password"
-                value={values.password}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                error={Boolean(touched.password && errors.password)}
-                variant="outlined"
-                required
-              />
-              <ErrorMessage
-                component="div"
-                name="password"
-                className="invalid-feedback"
-              />
+
+            <Grid container spacing={2}>
+              <Grid sx={{ mb: 4 }} item md={6} xs={12}>
+                <TextField
+                  sx={{ width: "100%" }}
+                  type="password"
+                  name="password"
+                  label="Password"
+                  value={values.password}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  error={Boolean(touched.password && errors.password)}
+                  variant="outlined"
+                  required
+                />
+                <ErrorMessage
+                  component="div"
+                  name="password"
+                  className="invalid-feedback"
+                />
+              </Grid>
+              <Grid sx={{ mb: 4 }} item md={6} xs={12}>
+                <FormControl sx={{ width: "100%", mr: 2 }}>
+                  <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="role"
+                    label="role"
+                    value={values.role}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    sx={{ textAlign: "left" }}
+                    error={Boolean(touched.role && errors.role)}
+                    fullWidth
+                    required
+                  >
+                    {roleData.map((row) => (
+                      <MenuItem value={row._id}>{row.roleType}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
             </Grid>
 
             <Grid

@@ -20,6 +20,24 @@ const actions = {
   DELETE_INTERVIEW_DETAIL_ERROR: "DELETE_INTERVIEW_DETAIL_ERROR",
 
   /**
+   * request to get report.
+   */
+  getInterviewReport: () => ({
+    type: actions.GET_INTERVIEW_REPORT_REQUEST,
+  }),
+
+  getInterviewReportSuccess: (payload = {}) => ({
+    type: actions.GET_INTERVIEW_REPORT_SUCCESS,
+    payload,
+  }),
+
+  getInterviewReportFailure: (payload = "", errors = {}) => ({
+    type: actions.GET_INTERVIEW_REPORT_ERROR,
+    payload,
+    errors,
+  }),
+
+  /**
    * request to create interview result report.
    */
   createInterviewReport: (queryParams) => ({
@@ -40,24 +58,6 @@ const actions = {
    */
   createInterviewReportFailure: (payload = "", errors = {}) => ({
     type: actions.CREATE_INTERVIEW_REPORT_ERROR,
-    payload,
-    errors,
-  }),
-
-  /**
-   * request to get report.
-   */
-  getInterviewReport: () => ({
-    type: actions.GET_INTERVIEW_REPORT_REQUEST,
-  }),
-
-  getInterviewReportSuccess: (payload = {}) => ({
-    type: actions.GET_INTERVIEW_REPORT_SUCCESS,
-    payload,
-  }),
-
-  getInterviewReportFailure: (payload = "", errors = {}) => ({
-    type: actions.GET_INTERVIEW_REPORT_ERROR,
     payload,
     errors,
   }),
@@ -85,9 +85,10 @@ const actions = {
    * request update .
    */
 
-  updateInterviewResult: (id) => ({
+  updateInterviewResult: (payload, id) => ({
     type: actions.UPDATE_INTERVIEW_DETIAL_REQUEST,
     id,
+    payload,
   }),
 
   updateInterviewResultSuccess: (payload = {}) => ({

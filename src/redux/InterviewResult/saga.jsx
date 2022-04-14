@@ -39,8 +39,6 @@ export function* getInterviewReport() {
  * Request to get single detail of interview result.
  */
 export function* getSingleInterviewResultData({ id }) {
-  console.log("userid", id);
-  // debugger;
   try {
     const { data } = yield axiosGet(`getInterViewResultDetails/${id}`);
     yield put(actions.getSingleInterviewResultSuccess(data));
@@ -55,10 +53,12 @@ export function* getSingleInterviewResultData({ id }) {
  * Request to update interview result.
  *
  */
-export function* updateResultRequest({ id }) {
+export function* updateResultRequest({ payload, id }) {
   try {
-    const { data } = yield axiosPut(id, `updateInterViewResult/${id}`);
+    const { data } = yield axiosPut(payload, `updateInterViewResult/${id}`);
     yield put(actions.updateInterviewResultSuccess(data));
+
+    yield put(push("/result"));
   } catch (error) {
     yield put(
       actions.updateInterviewResultFailure(error.message, error.data || {})

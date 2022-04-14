@@ -84,8 +84,9 @@ const actions = {
   /**
    * request to update result.
    */
-  updateUsersDetail: (payload) => ({
+  updateUsersDetail: (payload, id) => ({
     type: actions.UPDATE_USERS_DETAIL_REQUEST,
+    id,
     payload,
   }),
 

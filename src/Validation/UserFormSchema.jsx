@@ -1,5 +1,4 @@
 import * as Yup from "yup";
-import moment from "moment";
 
 const emailRegex =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -7,7 +6,7 @@ const passwordRegex =
   /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 
 const UserFormSchema = Yup.object().shape({
-  image: Yup.string().required("Please Upload Image!"),
+  // images: Yup.string().required("Please Upload Image!"),
 
   first_name: Yup.string()
     .min(4, "FirstName at least 4 character required!")
@@ -32,10 +31,6 @@ const UserFormSchema = Yup.object().shape({
     )
     .min(8, "Minimun 8 Character Required!")
     .required("Please Enter Password!"),
-
-  // confirmPassword: Yup.string()
-  //   .oneOf([Yup.ref("password")], "Password must be same!")
-  //   .required("Required Field!"),
 });
 
 export default UserFormSchema;

@@ -15,23 +15,25 @@ import {
   Button,
   Paper,
 } from "@mui/material";
+
 import { useHistory, useParams } from "react-router-dom";
+
 import schema from "../../Validation/InterviewFormSchema";
+
 import authActions from "../../redux/InterviewResult/action";
 
 const InterviewResultForm = () => {
   const { id } = useParams();
 
-  const { InterviewResultDetails, action } = useSelector(
-    (state) => state.interviewResult
-  );
+  const { InterviewResultDetails, action, Interviewer, Technology } =
+    useSelector((state) => state.interviewResult);
 
   const history = useHistory();
 
   const dispatch = useDispatch();
 
   let initialValue = {
-    date: InterviewResultDetails?.date || "",
+    date: InterviewResultDetails.date || "",
     name: InterviewResultDetails.name || "",
     interviewer: InterviewResultDetails.interviewer || [],
     technology: InterviewResultDetails.technology || [],
@@ -42,18 +44,7 @@ const InterviewResultForm = () => {
     codingStandard: InterviewResultDetails.codingStandard || "",
     technicalRound: InterviewResultDetails.technicalRound || "",
     notes: InterviewResultDetails.notes || "",
-    id: InterviewResultDetails.id || "",
   };
-
-  // useEffect(() => {
-  //   dispatch(authActions.getSingleInterviewResultRequest(id));
-  // }, [dispatch, id]);
-
-  useEffect(() => {
-    if (InterviewResultDetails) {
-      initialValue = InterviewResultDetails;
-    }
-  }, []);
 
   const exitHandler = (e) => {
     e.preventDefault();
@@ -68,7 +59,6 @@ const InterviewResultForm = () => {
         display: "flex",
         flexDirection: "column",
         textAlign: "center",
-
         mb: 4,
         mx: 5,
       }}
@@ -82,13 +72,11 @@ const InterviewResultForm = () => {
           ...initialValue,
         }}
         validationSchema={schema}
+        enableReinitialize={true}
         onSubmit={(values) => {
-          // debugger;
-          if (action == "GET_SINGLE_INTERVIEW_RESULT_REQUEST") {
-            console.log("Update");
-            dispatch(authActions.updateInterviewResult(values));
+          if (action == "GET_SINGLE_INTERVIEW_RESULT_SUCCESS") {
+            dispatch(authActions.updateInterviewResult(values, id));
           } else {
-            console.log("Add");
             dispatch(authActions.createInterviewReport(values));
           }
         }}
@@ -98,9 +86,7 @@ const InterviewResultForm = () => {
           handleBlur,
           handleChange,
           handleSubmit,
-
           isValid,
-
           touched,
           values,
         }) => (
@@ -132,6 +118,7 @@ const InterviewResultForm = () => {
                 className="invalid-feedback"
               />
             </Grid>
+
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid item md={6} xs={12}>
                 <TextField
@@ -157,13 +144,13 @@ const InterviewResultForm = () => {
                   <InputLabel id="demo-simple-select-label">
                     Interviewer Name
                   </InputLabel>
-
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     name="interviewer"
                     label="Interviewer Name"
                     value={values.interviewer}
+                    multiple
                     onChange={handleChange}
                     onBlur={handleBlur}
                     sx={{ textAlign: "left" }}
@@ -171,13 +158,11 @@ const InterviewResultForm = () => {
                     fullWidth
                     required
                   >
-                    <MenuItem value="Renish Dadhaniya">
-                      Renish Dadhaniya
-                    </MenuItem>
-                    <MenuItem value="Dhaval Thakral">Dhaval Thakral</MenuItem>
-                    <MenuItem value="Riddhi Kadiya">Riddhi Kadiya</MenuItem>
-                    <MenuItem value="Malay Patel">Malay Patel</MenuItem>
-                    <MenuItem value="Nirmal Jodhani">Nirmal Jodhani</MenuItem>
+                    {Interviewer.map((row) => (
+                      <MenuItem key={row.id} value={row.interviwer}>
+                        {row.interviwer}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
                 <ErrorMessage
@@ -187,6 +172,7 @@ const InterviewResultForm = () => {
                 />
               </Grid>
             </Grid>
+
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid item md={6} xs={12}>
                 <FormControl sx={{ width: "100%", mr: 2 }}>
@@ -207,13 +193,11 @@ const InterviewResultForm = () => {
                     fullWidth
                     required
                   >
-                    <MenuItem value="ReactJs">ReactJs</MenuItem>
-                    <MenuItem value="Angular">Angular</MenuItem>
-                    <MenuItem value=".Net">.Net</MenuItem>
-                    <MenuItem value="Flutter">Flutter</MenuItem>
-                    <MenuItem value="Android">Android</MenuItem>
-                    <MenuItem value="PHP">PHP</MenuItem>
-                    <MenuItem value="IOS">IOS</MenuItem>
+                    {Technology.map((row) => (
+                      <MenuItem key={row.id} value={row.technology}>
+                        {row.technology}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
                 <ErrorMessage
@@ -243,6 +227,7 @@ const InterviewResultForm = () => {
                 />
               </Grid>
             </Grid>
+
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid item md={6} xs={12}>
                 <FormControl sx={{ width: "100%", mr: 2 }}>
@@ -302,6 +287,7 @@ const InterviewResultForm = () => {
                 />
               </Grid>
             </Grid>
+
             <Grid container spacing={2} sx={{ mb: 2 }}>
               <Grid item md={6} xs={12}>
                 <TextField
@@ -346,6 +332,7 @@ const InterviewResultForm = () => {
                 />
               </Grid>
             </Grid>
+
             <Grid container spacing={2}>
               <Grid item md={6} xs={12}>
                 <TextField
@@ -388,6 +375,7 @@ const InterviewResultForm = () => {
                 />
               </Grid>
             </Grid>
+
             <Grid
               sx={{
                 display: "flex",
