@@ -20,7 +20,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import actions from "../../redux/Users/actions";
+import userActions from "../../redux/Users/actions";
 
 import roleAction from "../../redux/Role/actions";
 
@@ -54,7 +54,6 @@ const UserForm = () => {
   }, []);
 
   const handleImageChange = (e) => {
-    // console.log(e.target.files[0]);
     setImages(e.target.files[0]);
   };
 
@@ -82,14 +81,13 @@ const UserForm = () => {
         initialValues={{
           ...initialValue,
         }}
-        validationSchema={schema}
+        // validationSchema={schema}
         enableReinitialize={true}
         onSubmit={(values) => {
-          console.log(values);
           if (action == "GET_SINGLE_USERS_SUCCESS") {
-            dispatch(actions.updateUsersDetail(values, id));
+            dispatch(userActions.updateUsersDetail(formdata(values), id));
           } else {
-            dispatch(actions.createUsersReport(formdata(values)));
+            dispatch(userActions.createUsersReport(formdata(values)));
           }
         }}
       >
@@ -110,14 +108,11 @@ const UserForm = () => {
           >
             <Grid sx={{ mb: 4 }}>
               <Typography>Upload Image</Typography>
-              <TextField
+              <input
                 type="file"
                 name="image"
-                value={values.images}
-                onBlur={handleBlur}
                 onChange={handleImageChange}
                 accept="image/*"
-                error={Boolean(touched.image && errors.image)}
                 required
               />
               <ErrorMessage

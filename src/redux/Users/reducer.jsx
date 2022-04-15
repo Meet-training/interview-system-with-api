@@ -10,7 +10,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.CREATE_USERS_REPORT_REQUEST:
+    case actions.CREATE_USERS_REQUEST:
       return {
         ...state,
         errorData: {},
@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
         loading: true,
         action: action.type,
       };
-    case actions.CREATE_USERS_REPORT_SUCCESS:
+    case actions.CREATE_USERS_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
         loading: false,
         action: action.type,
       };
-    case actions.CREATE_USERS_REPORT_ERROR:
+    case actions.CREATE_USERS_ERROR:
       return {
         ...state,
         loading: false,
@@ -36,19 +36,19 @@ export default (state = initialState, action) => {
         errorData: action.errors || {},
         action: action.type,
       };
-    case actions.GET_USERS_REPORT_REQUEST:
+    case actions.GET_ALL_USERS_REQUEST:
       return {
         ...state,
         errorData: {},
         action: action.type,
       };
-    case actions.GET_USERS_REPORT_SUCCESS:
+    case actions.GET_ALL_USERS_SUCCESS:
       return {
         ...state,
         UsersTable: action.payload.data,
         action: action.type,
       };
-    case actions.GET_USERS_REPORT_ERROR:
+    case actions.GET_ALL_USERS_ERROR:
       return {
         ...state,
         errorData: action.errors || {},
@@ -65,7 +65,6 @@ export default (state = initialState, action) => {
         action: action.type,
       };
     case actions.GET_SINGLE_USERS_SUCCESS: {
-      console.log("action.payload", action.payload);
       return {
         ...state,
         loading: false,

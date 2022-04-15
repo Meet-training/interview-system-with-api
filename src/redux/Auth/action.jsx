@@ -24,10 +24,9 @@ const actions = {
   /**
    * login success
    */
-  loginSuccess: (payload = {}, token = "") => ({
+  loginSuccess: (payload) => ({
     type: actions.LOGIN_SUCCESS,
     payload,
-    token,
   }),
 
   /**

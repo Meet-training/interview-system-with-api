@@ -4,23 +4,6 @@ import { axiosGet, axiosPost, axiosDelete, axiosPut } from "../axioshelper";
 import { push } from "connected-react-router";
 
 /**
- * Request to create Interview Result report.
- */
-export function* createInterviewReport({ queryParams }) {
-  try {
-    const { data } = yield axiosPost(queryParams, `submitInterView`);
-    // console.log("data", data);
-    yield put(actions.createInterviewReportSuccess(data));
-    yield put(actions.getInterviewReport());
-    yield put(push("/result"));
-  } catch (error) {
-    yield put(
-      actions.createInterviewReportFailure(error.message, error.data || {})
-    );
-  }
-}
-
-/**
  * get all Interview Result.
  *
  */
@@ -36,7 +19,24 @@ export function* getInterviewReport() {
 }
 
 /**
- * Request to get single detail of interview result.
+ *  create Interview Result report.
+ */
+export function* createInterviewReport({ queryParams }) {
+  try {
+    const { data } = yield axiosPost(queryParams, `submitInterView`);
+
+    yield put(actions.createInterviewReportSuccess(data));
+    yield put(actions.getInterviewReport());
+    yield put(push("/result"));
+  } catch (error) {
+    yield put(
+      actions.createInterviewReportFailure(error.message, error.data || {})
+    );
+  }
+}
+
+/**
+ * get single detail of interview result.
  */
 export function* getSingleInterviewResultData({ id }) {
   try {
@@ -50,7 +50,7 @@ export function* getSingleInterviewResultData({ id }) {
 }
 
 /**
- * Request to update interview result.
+ * update interview result.
  *
  */
 export function* updateResultRequest({ payload, id }) {
@@ -67,19 +67,18 @@ export function* updateResultRequest({ payload, id }) {
 }
 
 /**
- * Request to delete interview result.
+ *  delete interview result.
  */
 
 export function* deleteInterviewResult({ id }) {
-  // console.log("id", id);
   const { data } = yield axiosDelete(`deleteInterViewResult/${id}`);
   yield put(actions.getInterviewReport(data));
 }
 
 export default function* rootSaga() {
   yield all([
-    takeEvery(actions.CREATE_INTERVIEW_REPORT_REQUEST, createInterviewReport),
-    takeEvery(actions.GET_INTERVIEW_REPORT_REQUEST, getInterviewReport),
+    takeEvery(actions.CREATE_INTERVIEW_RESULT_REQUEST, createInterviewReport),
+    takeEvery(actions.GET_INTERVIEW_RESULT_REQUEST, getInterviewReport),
     takeEvery(
       actions.GET_SINGLE_INTERVIEW_RESULT_REQUEST,
       getSingleInterviewResultData

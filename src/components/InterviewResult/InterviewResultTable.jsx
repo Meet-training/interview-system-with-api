@@ -26,9 +26,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import actions from "../../redux/InterviewResult/action";
-
-import { useParams } from "react-router-dom";
+import interviewResultActions from "../../redux/InterviewResult/action";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -50,7 +48,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const InterviewResultTable = () => {
-  const { id } = useParams();
   const dispatch = useDispatch();
 
   const resultlist = useSelector(
@@ -60,7 +57,7 @@ const InterviewResultTable = () => {
   const history = useHistory();
 
   React.useEffect(() => {
-    dispatch(actions.getInterviewReport());
+    dispatch(interviewResultActions.getInterviewReport());
   }, []);
 
   const handleAddResult = (e) => {
@@ -69,12 +66,12 @@ const InterviewResultTable = () => {
   };
 
   const editHandler = (id) => {
-    dispatch(actions.getSingleInterviewResultRequest(id));
+    dispatch(interviewResultActions.getSingleInterviewResultRequest(id));
     history.push(`/editResult/${id}`);
   };
 
   const deleteResultHandler = (id) => {
-    dispatch(actions.deleteInterviewResult(id));
+    dispatch(interviewResultActions.deleteInterviewResult(id));
   };
 
   return (
@@ -132,13 +129,13 @@ const InterviewResultTable = () => {
                   {row.interviewer}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.practicalCompletion}
+                  {row.practicalCompletion || "-"}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.codingStandard}
+                  {row.codingStandard || "-"}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.technicalRound}
+                  {row.technicalRound || "-"}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <Button onClick={() => editHandler(row._id)}>

@@ -72,7 +72,26 @@ export const dropdown = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.CREATE_INTERVIEW_REPORT_REQUEST:
+    case actions.GET_INTERVIEW_RESULT_REQUEST:
+      return {
+        ...state,
+        errorData: {},
+        action: action.type,
+      };
+    case actions.GET_INTERVIEW_RESULT_SUCCESS:
+      return {
+        ...state,
+        InterviewResultTable: action.payload.data,
+        action: action.type,
+      };
+    case actions.GET_INTERVIEW_RESULT_ERROR:
+      return {
+        ...state,
+        errorData: action.errors || {},
+        action: action.type,
+      };
+
+    case actions.CREATE_INTERVIEW_RESULT_REQUEST:
       return {
         ...state,
         errorData: {},
@@ -81,7 +100,7 @@ export default (state = initialState, action) => {
         loading: true,
         action: action.type,
       };
-    case actions.CREATE_INTERVIEW_REPORT_SUCCESS:
+    case actions.CREATE_INTERVIEW_RESULT_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -89,7 +108,7 @@ export default (state = initialState, action) => {
         loading: false,
         action: action.type,
       };
-    case actions.CREATE_INTERVIEW_REPORT_ERROR:
+    case actions.CREATE_INTERVIEW_RESULT_ERROR:
       return {
         ...state,
         loading: false,
@@ -98,24 +117,7 @@ export default (state = initialState, action) => {
         errorData: action.errors || {},
         action: action.type,
       };
-    case actions.GET_INTERVIEW_REPORT_REQUEST:
-      return {
-        ...state,
-        errorData: {},
-        action: action.type,
-      };
-    case actions.GET_INTERVIEW_REPORT_SUCCESS:
-      return {
-        ...state,
-        InterviewResultTable: action.payload.data,
-        action: action.type,
-      };
-    case actions.GET_INTERVIEW_REPORT_ERROR:
-      return {
-        ...state,
-        errorData: action.errors || {},
-        action: action.type,
-      };
+
     case actions.GET_SINGLE_INTERVIEW_RESULT_REQUEST:
       return {
         ...state,
@@ -143,6 +145,7 @@ export default (state = initialState, action) => {
         errorData: action.errors || {},
         action: action.type,
       };
+
     case actions.UPDATE_INTERVIEW_DETIAL_SUCCESS:
       return {
         ...state,

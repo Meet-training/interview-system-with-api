@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Avatar,
   Button,
@@ -10,9 +11,8 @@ import {
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-import { useHistory } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
+
 import authActions from "../../redux/Auth/action";
 
 const LoginLayout = () => {
@@ -37,8 +37,6 @@ const LoginLayout = () => {
     };
 
     dispatch(authActions.loginRequest(data));
-    console.log(data);
-    // history.push("/interview-result");
   };
 
   return (
@@ -89,13 +87,6 @@ const LoginLayout = () => {
           >
             Login
           </Button>
-          {/* <Grid container>
-          <Grid item>
-            <Link href="#" variant="body2">
-              {"Don't have an account? Sign Up"}
-            </Link>
-          </Grid>
-        </Grid> */}
         </Box>
       </Box>
     </Container>

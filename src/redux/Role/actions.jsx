@@ -4,7 +4,7 @@ const actions = {
   GET_ROLE_ERROR: "GET_ROLE_ERROR",
 
   /**
-   * request to get role.
+   * get All Users Role.
    */
 
   getRoleRequest: () => ({

@@ -11,7 +11,6 @@ const initState = {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initState, action) => {
-  // console.log("actions", actions);
   switch (action.type) {
     case actions.LOGIN_REQUEST:
       return {

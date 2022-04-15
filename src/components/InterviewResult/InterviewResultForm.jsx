@@ -20,7 +20,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 import schema from "../../Validation/InterviewFormSchema";
 
-import authActions from "../../redux/InterviewResult/action";
+import interviewResultActions from "../../redux/InterviewResult/action";
 
 const InterviewResultForm = () => {
   const { id } = useParams();
@@ -75,9 +75,9 @@ const InterviewResultForm = () => {
         enableReinitialize={true}
         onSubmit={(values) => {
           if (action == "GET_SINGLE_INTERVIEW_RESULT_SUCCESS") {
-            dispatch(authActions.updateInterviewResult(values, id));
+            dispatch(interviewResultActions.updateInterviewResult(values, id));
           } else {
-            dispatch(authActions.createInterviewReport(values));
+            dispatch(interviewResultActions.createInterviewReport(values));
           }
         }}
       >

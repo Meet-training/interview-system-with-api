@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { notification } from 'antd';
+import { notification } from "antd";
 import authActions from "./Auth/action";
 import { store } from "./store";
 
@@ -28,14 +28,10 @@ const checkError = (error) => {
   if (error.response && error.response.data) {
     let { data } = error.response;
     if (data.message) {
-      // notification['error']({
-      //     message: data.message
-      // });
+      notification["error"]({});
     }
   } else {
-    // notification['error']({
-    //     message: error.message
-    // });
+    notification["error"]({});
   }
   if (error.response) {
     if (error.response.status === 401) {
@@ -45,9 +41,7 @@ const checkError = (error) => {
 };
 
 const successMessage = (message = "Success") => {
-  // notification.success({
-  //     message
-  // });
+  notification.success({});
 };
 
 /**
@@ -66,7 +60,6 @@ const axiosGet = async (url) => {
  */
 const axiosPost = async (data, url) => {
   try {
-    console.log("Dsadasds", BASE_URL);
     let request = await axios.post(`${BASE_URL}/${url}`, data, getHeaders());
     if (request.data && request.data.message) {
       await successMessage(request.data.message);

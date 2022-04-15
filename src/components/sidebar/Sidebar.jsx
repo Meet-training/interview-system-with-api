@@ -24,14 +24,12 @@ const SidebarItem = (props) => {
 };
 
 const Sidebar = (props) => {
-  const isShowUser = useSelector((state) => state.auth.user?.role?.name);
+  const roleType = useSelector(
+    (state) => state.auth.user?.role?.name || state.auth.user?.data?.role?.name
+  );
 
-  function ShowUserCondition() {
-    if (isShowUser === "admin" || isShowUser === "hr") {
-      return true;
-    }
-    return false;
-  }
+  const valid = roleType === "admin" || roleType === "hr" ? true : false;
+
   const activeItem = sidebar_items.findIndex(
     (item) => item.route === props.location.pathname
   );
@@ -40,6 +38,7 @@ const Sidebar = (props) => {
     <div className="sidebar">
       <div className="sidebar__logo">Interview System</div>
       <Divider variant="middle" sx={{ mb: 2 }} />
+
       <Link to="/result">
         <SidebarItem
           title="Interview Result"
@@ -47,7 +46,8 @@ const Sidebar = (props) => {
           active={0 === activeItem}
         />
       </Link>
-      {ShowUserCondition() && (
+
+      {valid && (
         <Link to="/users">
           <SidebarItem
             title="Users"

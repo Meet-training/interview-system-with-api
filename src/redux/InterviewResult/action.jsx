@@ -1,11 +1,11 @@
 const actions = {
-  CREATE_INTERVIEW_REPORT_REQUEST: "CREATE_INTERVIEW_REQUEST",
-  CREATE_INTERVIEW_REPORT_SUCCESS: "CREATE_INTERVIEW_REPORT_SUCCESS",
-  CREATE_INTERVIEW_REPORT_ERROR: "CREATE_INTERVIEW_REPORT_ERROR",
+  GET_INTERVIEW_RESULT_REQUEST: "GET_INTERVIEW_RESULT_REQUEST",
+  GET_INTERVIEW_RESULT_SUCCESS: "GET_INTERVIEW_RESULT_SUCCESS",
+  GET_INTERVIEW_RESULT_ERROR: "GET_INTERVIEW_RESULT_ERROR",
 
-  GET_INTERVIEW_REPORT_REQUEST: "GET_INTERVIEW_REPORT_REQUEST",
-  GET_INTERVIEW_REPORT_SUCCESS: "GET_INTERVIEW_REPORT_SUCCESS",
-  GET_INTERVIEW_REPORT_ERROR: "GET_INTERVIEW_REPORT_ERROR",
+  CREATE_INTERVIEW_RESULT_REQUEST: "CREATE_INTERVIEW_RESULT_REQUEST",
+  CREATE_INTERVIEW_RESULT_SUCCESS: "CREATE_INTERVIEW_RESULT_SUCCESS",
+  CREATE_INTERVIEW_RESULT_ERROR: "CREATE_INTERVIEW_RESULT_ERROR",
 
   GET_SINGLE_INTERVIEW_RESULT_REQUEST: "GET_SINGLE_INTERVIEW_RESULT_REQUEST",
   GET_SINGLE_INTERVIEW_RESULT_SUCCESS: "GET_SINGLE_INTERVIEW_RESULT_SUCCESS",
@@ -20,50 +20,44 @@ const actions = {
   DELETE_INTERVIEW_DETAIL_ERROR: "DELETE_INTERVIEW_DETAIL_ERROR",
 
   /**
-   * request to get report.
+   *  get All Interview Result.
    */
   getInterviewReport: () => ({
-    type: actions.GET_INTERVIEW_REPORT_REQUEST,
+    type: actions.GET_INTERVIEW_RESULT_REQUEST,
   }),
 
   getInterviewReportSuccess: (payload = {}) => ({
-    type: actions.GET_INTERVIEW_REPORT_SUCCESS,
+    type: actions.GET_INTERVIEW_RESULT_SUCCESS,
     payload,
   }),
 
   getInterviewReportFailure: (payload = "", errors = {}) => ({
-    type: actions.GET_INTERVIEW_REPORT_ERROR,
+    type: actions.GET_INTERVIEW_RESULT_ERROR,
     payload,
     errors,
   }),
 
   /**
-   * request to create interview result report.
+   * request to create interview result.
    */
   createInterviewReport: (queryParams) => ({
-    type: actions.CREATE_INTERVIEW_REPORT_REQUEST,
+    type: actions.CREATE_INTERVIEW_RESULT_REQUEST,
     queryParams,
   }),
 
-  /**
-   * when create interview result report is successfull.
-   */
   createInterviewReportSuccess: (payload = {}) => ({
-    type: actions.CREATE_INTERVIEW_REPORT_SUCCESS,
+    type: actions.CREATE_INTERVIEW_RESULT_SUCCESS,
     payload,
   }),
 
-  /**
-   * when something went wrong with create interview result report.
-   */
   createInterviewReportFailure: (payload = "", errors = {}) => ({
-    type: actions.CREATE_INTERVIEW_REPORT_ERROR,
+    type: actions.CREATE_INTERVIEW_RESULT_ERROR,
     payload,
     errors,
   }),
 
   /**
-   * request to deport.
+   *  get Single Interview Result .
    */
   getSingleInterviewResultRequest: (id) => ({
     type: actions.GET_SINGLE_INTERVIEW_RESULT_REQUEST,
@@ -82,7 +76,7 @@ const actions = {
   }),
 
   /**
-   * request update .
+   *  update interview Result .
    */
 
   updateInterviewResult: (payload, id) => ({
@@ -103,7 +97,7 @@ const actions = {
   }),
 
   /**
-   * request delete .
+   * delete Interview Result .
    */
   deleteInterviewResult: (id) => ({
     type: actions.DELETE_INTERVIEW_DETAIL_REQUEST,
