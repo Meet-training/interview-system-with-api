@@ -27,7 +27,7 @@ export function* createInterviewReport({ queryParams }) {
 
     yield put(actions.createInterviewReportSuccess(data));
     yield put(actions.getInterviewReport());
-    yield put(push("/result"));
+    yield put(push("/interviewResult"));
   } catch (error) {
     yield put(
       actions.createInterviewReportFailure(error.message, error.data || {})
@@ -58,7 +58,7 @@ export function* updateResultRequest({ payload, id }) {
     const { data } = yield axiosPut(payload, `updateInterViewResult/${id}`);
     yield put(actions.updateInterviewResultSuccess(data));
 
-    yield put(push("/result"));
+    yield put(push("/interviewResult"));
   } catch (error) {
     yield put(
       actions.updateInterviewResultFailure(error.message, error.data || {})

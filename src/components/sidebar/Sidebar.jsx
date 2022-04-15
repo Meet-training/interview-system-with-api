@@ -39,7 +39,7 @@ const Sidebar = (props) => {
       <div className="sidebar__logo">Interview System</div>
       <Divider variant="middle" sx={{ mb: 2 }} />
 
-      <Link to="/result">
+      <Link to="/interviewResult">
         <SidebarItem
           title="Interview Result"
           icon="bx bx-table"

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 
 import { styled } from "@mui/material/styles";
 
@@ -50,19 +50,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const InterviewResultTable = () => {
   const dispatch = useDispatch();
 
-  const resultlist = useSelector(
+  const interviewResultList = useSelector(
     (state) => state.interviewResult.InterviewResultTable
   );
 
   const history = useHistory();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(interviewResultActions.getInterviewReport());
   }, []);
 
-  const handleAddResult = (e) => {
+  const handleAddInterviewResult = (e) => {
     e.preventDefault();
-    history.push("/addResult");
+    history.push("/addInterviewResult");
   };
 
   const editHandler = (id) => {
@@ -89,7 +89,7 @@ const InterviewResultTable = () => {
 
         <Button
           variant="contained"
-          onClick={handleAddResult}
+          onClick={handleAddInterviewResult}
           sx={{
             bgcolor: "#999c19",
             "&.MuiButtonBase-root:hover": {
@@ -121,8 +121,8 @@ const InterviewResultTable = () => {
           </TableHead>
 
           <TableBody>
-            {resultlist.map((row) => (
-              <StyledTableRow key={`${row.id}`}>
+            {interviewResultList.map((row) => (
+              <StyledTableRow key={`${row._id}`}>
                 <StyledTableCell>{row.date}</StyledTableCell>
                 <StyledTableCell align="center">{row.name}</StyledTableCell>
                 <StyledTableCell align="center">
@@ -149,7 +149,7 @@ const InterviewResultTable = () => {
             ))}
           </TableBody>
         </Table>
-        {resultlist.length === 0 && (
+        {interviewResultList.length === 0 && (
           <Typography variant="h6" sx={{ color: "red", my: 2 }}>
             No Record Found!
           </Typography>

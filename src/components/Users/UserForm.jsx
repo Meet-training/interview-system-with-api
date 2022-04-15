@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Formik, ErrorMessage } from "formik";
 
@@ -43,13 +43,12 @@ const UserForm = () => {
     first_name: UsersDetails.first_name || "",
     last_name: UsersDetails.last_name || "",
     email: UsersDetails.email || "",
-    dateOfBirth: UsersDetails.dateOfBirth || "",
+    dateOfBirth: UsersDetails.dateOfBirth?.slice(0, 10) || "",
     password: UsersDetails.password || "",
-
     role: UsersDetails.role || "",
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(roleAction.getRoleRequest());
   }, []);
 
@@ -84,7 +83,7 @@ const UserForm = () => {
         // validationSchema={schema}
         enableReinitialize={true}
         onSubmit={(values) => {
-          if (action == "GET_SINGLE_USERS_SUCCESS") {
+          if (action === "GET_SINGLE_USERS_SUCCESS") {
             dispatch(userActions.updateUsersDetail(formdata(values), id));
           } else {
             dispatch(userActions.createUsersReport(formdata(values)));
@@ -108,11 +107,13 @@ const UserForm = () => {
           >
             <Grid sx={{ mb: 4 }}>
               <Typography>Upload Image</Typography>
-              <input
+              <TextField
                 type="file"
                 name="image"
+                onBlur={handleBlur}
                 onChange={handleImageChange}
                 accept="image/*"
+                variant="outlined"
                 required
               />
               <ErrorMessage

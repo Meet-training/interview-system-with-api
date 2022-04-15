@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -48,7 +48,7 @@ const InterviewResultForm = () => {
 
   const exitHandler = (e) => {
     e.preventDefault();
-    history.push("/result");
+    history.push("/interviewResult");
   };
 
   return (
@@ -74,7 +74,7 @@ const InterviewResultForm = () => {
         validationSchema={schema}
         enableReinitialize={true}
         onSubmit={(values) => {
-          if (action == "GET_SINGLE_INTERVIEW_RESULT_SUCCESS") {
+          if (action === "GET_SINGLE_INTERVIEW_RESULT_SUCCESS") {
             dispatch(interviewResultActions.updateInterviewResult(values, id));
           } else {
             dispatch(interviewResultActions.createInterviewReport(values));

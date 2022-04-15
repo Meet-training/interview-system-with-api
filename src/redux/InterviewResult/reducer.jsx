@@ -68,8 +68,6 @@ const initialState = {
   ],
 };
 
-export const dropdown = {};
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case actions.GET_INTERVIEW_RESULT_REQUEST:

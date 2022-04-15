@@ -38,12 +38,12 @@ const Routes = () => {
   return (
     <Switch>
       <RestrictedRoute
-        path="/result"
+        path="/interviewResult"
         component={InterviewResultTable}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/addResult"
+        path="/addInterviewResult"
         component={InterviewResultForm}
         isLoggedIn={isLoggedIn}
       />

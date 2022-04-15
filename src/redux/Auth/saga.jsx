@@ -18,7 +18,7 @@ export function* loginRequest({ payload }) {
       yield localStorage.setItem("auth_token", token);
       yield localStorage.setItem("user", JSON.stringify(data.data));
       yield put(actions.loginSuccess(data.data));
-      yield put(push("/result"));
+      yield put(push("/interviewResult"));
     } else {
       throw new Error("Invalid credentials provided.");
     }

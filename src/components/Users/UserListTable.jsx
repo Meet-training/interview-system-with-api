@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 
 import {
   Table,
@@ -21,7 +21,7 @@ import { useHistory } from "react-router-dom";
 
 import AddIcon from "@mui/icons-material/Add";
 
-import actions from "../../redux/Users/actions";
+import userActions from "../../redux/Users/actions";
 
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -58,17 +58,17 @@ const UserResultTable = () => {
     history.push("/addUsers");
   };
 
-  React.useEffect(() => {
-    dispatch(actions.getUsersReport());
+  useEffect(() => {
+    dispatch(userActions.getUsersReport());
   }, []);
 
   const editHandler = (id) => {
-    dispatch(actions.getSingleUsersRequest(id));
+    dispatch(userActions.getSingleUsersRequest(id));
     history.push(`/editUsers/${id}`);
   };
 
   const deleteResultHandler = (id) => {
-    dispatch(actions.deleteUsers(id));
+    dispatch(userActions.deleteUsers(id));
   };
 
   return (
@@ -111,7 +111,7 @@ const UserResultTable = () => {
 
           <TableBody>
             {userData.map((row) => (
-              <StyledTableRow key={row.name}>
+              <StyledTableRow key={`${row._id}`}>
                 <StyledTableCell align="left">{row.first_name}</StyledTableCell>
                 <StyledTableCell align="left">{row.last_name}</StyledTableCell>
                 <StyledTableCell align="center">
