@@ -241,7 +241,9 @@ const UserForm = () => {
                     required
                   >
                     {roleData.map((row) => (
-                      <MenuItem value={row._id}>{row.roleType}</MenuItem>
+                      <MenuItem value={row._id} key={`${row._id}`}>
+                        {row.roleType}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>

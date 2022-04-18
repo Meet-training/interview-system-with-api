@@ -29,8 +29,8 @@ const Topnav = () => {
   const dispatch = useDispatch();
 
   const renderUserMenu = (item, index) => (
-    <Button onClick={logoutHandler}>
-      <Link to="/" key={index}>
+    <Button onClick={logoutHandler} key={index}>
+      <Link to="/">
         <div className="notification-item">
           <i className={item.icon}></i>
           <span>{item.content}</span>
