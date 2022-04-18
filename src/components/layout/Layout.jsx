@@ -45,6 +45,7 @@ const Layout = () => {
             <Sidebar {...props} />
             <div className="layout__content">
               <TopNav />
+
               <div className="layout__content-main">
                 <Routes />
               </div>
