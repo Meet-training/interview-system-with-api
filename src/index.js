@@ -1,19 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./assets/boxicons-2.0.7/css/boxicons.min.css";
-import "./assets/css/errormassage.css";
-import "./assets/css/grid.css";
-import "./assets/css/index.css";
-import "./components/topnav/topnav.css";
-import "./components/dropdown/dropdown.css";
-import "./components/layout/layout.css";
-import "./components/sidebar/sidebar.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import { history } from "./redux/store";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { history, store } from "./Redux/store";
+import "./Assets/boxicons-2.0.7/css/boxicons.min.css";
+import "./Assets/css/errormassage.css";
+import "./Assets/css/grid.css";
+import "./Assets/css/index.css";
+import "./Components/Topnav/styles.css";
+import "./Components/Dropdown/styles.css";
+import "./Components/Layout/styles.css";
+import "./Components/Sidebar/styles.css";
 
 document.title = "Interview Result";
 

@@ -1,16 +1,10 @@
 import React from "react";
-
 import { Route, Switch, Redirect } from "react-router-dom";
-
-import UserForm from "./Users/UserForm";
-
-import UserListTable from "./Users/UserListTable";
-
-import InterviewResultForm from "./InterviewResult/InterviewResultForm";
-
-import InterviewResultTable from "./InterviewResult/InterviewResultTable";
-
 import { useSelector } from "react-redux";
+import InterviewResultForm from "./InterviewResult/AddEditForm";
+import InterviewResultTable from "./InterviewResult";
+import UserListTable from "./Users";
+import UserForm from "./Users/AddEditForm";
 
 const RestrictedRoute = ({ component: Component, isLoggedIn, ...rest }) => {
   return (
@@ -38,32 +32,38 @@ const Routes = () => {
   return (
     <Switch>
       <RestrictedRoute
+        exact
         path="/interviewResult"
         component={InterviewResultTable}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/addInterviewResult"
+        exact
+        path="/interviewResult/addInterviewResult"
         component={InterviewResultForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/editInterviewResult/:id"
+        exact
+        path="/interviewResult/editInterviewResult/:id"
         component={InterviewResultForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
+        exact
         path="/usersList"
         component={UserListTable}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/addUsersDetails"
+        exact
+        path="/usersList/addUsersDetails"
         component={UserForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/editUsersDetails/:id"
+        exact
+        path="/usersList/editUsersDetails/:id"
         component={UserForm}
         isLoggedIn={isLoggedIn}
       />

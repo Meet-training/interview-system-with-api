@@ -1,7 +1,12 @@
 import { all, takeEvery, put } from "redux-saga/effects";
-import actions from "./action";
-import { axiosGet, axiosPost, axiosDelete, axiosPut } from "../axioshelper";
 import { push } from "connected-react-router";
+import actions from "./action";
+import {
+  axiosGet,
+  axiosPost,
+  axiosDelete,
+  axiosPut,
+} from "../../Helper/axiosHelper";
 
 /**
  * get all Interview Result.

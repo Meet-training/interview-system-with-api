@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-
 import { Formik, ErrorMessage } from "formik";
-
 import {
   Typography,
   Grid,
@@ -13,18 +11,12 @@ import {
   FormControl,
   MenuItem,
 } from "@mui/material";
-
-import schema from "../../Validation/UserFormSchema";
-
-import { useHistory, useParams } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
-
-import userActions from "../../redux/Users/actions";
-
-import roleAction from "../../redux/Role/actions";
-
+import { useHistory, useParams } from "react-router-dom";
 import formdata from "to-formdata";
+import schema from "../../../Validation/UserFormSchema";
+import userActions from "../../../Redux/Users/actions";
+import roleAction from "../../../Redux/Role/actions";
 
 const UserForm = () => {
   const { UsersDetails, action } = useSelector((state) => state.users);
@@ -58,7 +50,7 @@ const UserForm = () => {
 
   const exitHandler = (e) => {
     e.preventDefault();
-    history.push("/users");
+    history.push("/usersList");
   };
 
   return (

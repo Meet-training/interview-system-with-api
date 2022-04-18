@@ -1,11 +1,7 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
-
-import sidebar_items from "../../assets/JsonData/sidebar_routes.json";
-
+import sidebar_items from "../../Assets/JsonData/sidebar_routes.json";
 import { Divider } from "@mui/material";
-
 import { useSelector } from "react-redux";
 
 const SidebarItem = (props) => {

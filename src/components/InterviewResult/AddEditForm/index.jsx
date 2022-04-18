@@ -1,9 +1,6 @@
 import React from "react";
-
 import { useSelector, useDispatch } from "react-redux";
-
 import { Formik, ErrorMessage } from "formik";
-
 import {
   FormControl,
   InputLabel,
@@ -15,12 +12,9 @@ import {
   Button,
   Paper,
 } from "@mui/material";
-
 import { useHistory, useParams } from "react-router-dom";
-
-import schema from "../../Validation/InterviewFormSchema";
-
-import interviewResultActions from "../../redux/InterviewResult/action";
+import schema from "../../../Validation/InterviewFormSchema";
+import interviewResultActions from "../../../Redux/InterviewResult/action";
 
 const InterviewResultForm = () => {
   const { id } = useParams();

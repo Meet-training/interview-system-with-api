@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import { styled } from "@mui/material/styles";
 import {
   Table,
   TableBody,
@@ -11,21 +11,13 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-
-import { useSelector, useDispatch } from "react-redux";
-
 import { useHistory } from "react-router-dom";
-
 import AddIcon from "@mui/icons-material/Add";
-
-import userActions from "../../redux/Users/actions";
-
+import { useSelector, useDispatch } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
-
 import DeleteIcon from "@mui/icons-material/Delete";
+import interviewResultActions from "../../Redux/InterviewResult/action";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,29 +38,31 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const UserListTable = () => {
-  const history = useHistory();
-
+const InterviewResultTable = () => {
   const dispatch = useDispatch();
 
-  const userDetailsTable = useSelector((state) => state.users.UsersTable);
+  const interviewResultList = useSelector(
+    (state) => state.interviewResult.InterviewResultTable
+  );
 
-  const handleAddUser = (e) => {
-    e.preventDefault();
-    history.push("/addUsersDetails");
-  };
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(userActions.getUsersReport());
+    dispatch(interviewResultActions.getInterviewReport());
   }, []);
 
+  const handleAddInterviewResult = (e) => {
+    e.preventDefault();
+    history.push("/interviewResult/addInterviewResult");
+  };
+
   const editHandler = (id) => {
-    dispatch(userActions.getSingleUsersRequest(id));
-    history.push(`/editUsersDetails/${id}`);
+    dispatch(interviewResultActions.getSingleInterviewResultRequest(id));
+    history.push(`/interviewResult/editInterviewResult/${id}`);
   };
 
   const deleteResultHandler = (id) => {
-    dispatch(userActions.deleteUsers(id));
+    dispatch(interviewResultActions.deleteInterviewResult(id));
   };
 
   return (
@@ -82,11 +76,11 @@ const UserListTable = () => {
           mx: 1,
         }}
       >
-        <Typography variant="h5">User List</Typography>
+        <Typography variant="h5">Interview Result List</Typography>
 
         <Button
           variant="contained"
-          onClick={handleAddUser}
+          onClick={handleAddInterviewResult}
           sx={{
             bgcolor: "#999c19",
             "&.MuiButtonBase-root:hover": {
@@ -95,7 +89,7 @@ const UserListTable = () => {
           }}
         >
           <AddIcon sx={{ mr: 1 }} />
-          Add Users
+          Add Result
         </Button>
       </Box>
 
@@ -103,17 +97,40 @@ const UserListTable = () => {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead sx={{ bgcolor: "#999c19" }}>
             <TableRow>
-              <StyledTableCell align="left">FirstName</StyledTableCell>
-              <StyledTableCell align="left">LastName</StyledTableCell>
+              <StyledTableCell>Date</StyledTableCell>
+              <StyledTableCell align="center">Candidate</StyledTableCell>
+              <StyledTableCell align="center">Interviewer</StyledTableCell>
+              <StyledTableCell align="center">
+                Practical Completion
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                {" "}
+                Coding Standard %
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                Technical Completion
+              </StyledTableCell>
               <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
-            {userDetailsTable.map((row) => (
+            {interviewResultList.map((row) => (
               <StyledTableRow key={`${row._id}`}>
-                <StyledTableCell align="left">{row.first_name}</StyledTableCell>
-                <StyledTableCell align="left">{row.last_name}</StyledTableCell>
+                <StyledTableCell>{row.date}</StyledTableCell>
+                <StyledTableCell align="center">{row.name}</StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.interviewer}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.practicalCompletion || "-"}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.codingStandard || "-"}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.technicalRound || "-"}
+                </StyledTableCell>
                 <StyledTableCell align="center">
                   <Button onClick={() => editHandler(row._id)}>
                     <EditIcon sx={{ color: "mediumseagreen" }} />
@@ -126,8 +143,7 @@ const UserListTable = () => {
             ))}
           </TableBody>
         </Table>
-
-        {userDetailsTable.length === 0 && (
+        {interviewResultList.length === 0 && (
           <Typography variant="h6" sx={{ color: "red", my: 2 }}>
             No Record Found!
           </Typography>
@@ -137,4 +153,4 @@ const UserListTable = () => {
   );
 };
 
-export default UserListTable;
+export default InterviewResultTable;

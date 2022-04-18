@@ -5,7 +5,6 @@ const initState = {
   errorData: {},
   action: null,
   token: null,
-  message: null,
   loading: false,
 };
 
@@ -19,7 +18,6 @@ export default (state = initState, action) => {
         action: action.type,
         token: null,
         loading: true,
-        message: null,
       };
     case actions.LOGIN_SUCCESS:
       return {
@@ -36,7 +34,6 @@ export default (state = initState, action) => {
         action: action.type,
         token: null,
         loading: false,
-        message: action.payload,
       };
     case actions.LOGOUT_REQUEST:
       return {

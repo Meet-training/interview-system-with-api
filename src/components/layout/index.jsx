@@ -1,12 +1,10 @@
 import React from "react";
-
-import Sidebar from "../sidebar/Sidebar";
-import TopNav from "../topnav/TopNav";
+import Sidebar from "../Sidebar";
+import TopNav from "../Topnav";
 import { Switch, Route, Redirect } from "react-router-dom";
 import LoginLayout from "./LoginLayout";
 import { useSelector } from "react-redux";
-
-import Routes from "../routes";
+import Routes from "../Routes";
 
 const UnRestrictedRoute = ({ component: Component, isLoggedIn, ...rest }) => (
   <Route
