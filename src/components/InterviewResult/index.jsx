@@ -53,12 +53,12 @@ const InterviewResultTable = () => {
 
   const handleAddInterviewResult = (e) => {
     e.preventDefault();
-    history.push("/interviewResult/addInterviewResult");
+    history.push("/interview-result/add");
   };
 
   const editHandler = (id) => {
     dispatch(interviewResultActions.getSingleInterviewResultRequest(id));
-    history.push(`/interviewResult/editInterviewResult/${id}`);
+    history.push(`/interview-result/edit/${id}`);
   };
 
   const deleteResultHandler = (id) => {

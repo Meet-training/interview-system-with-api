@@ -33,37 +33,37 @@ const Routes = () => {
     <Switch>
       <RestrictedRoute
         exact
-        path="/interviewResult"
+        path="/interview-result"
         component={InterviewResultTable}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
         exact
-        path="/interviewResult/addInterviewResult"
+        path="/interview-result/add"
         component={InterviewResultForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
         exact
-        path="/interviewResult/editInterviewResult/:id"
+        path="/interview-result/edit/:id"
         component={InterviewResultForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
         exact
-        path="/usersList"
+        path="/users-list"
         component={UserListTable}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
         exact
-        path="/usersList/addUsersDetails"
+        path="/users-list/add"
         component={UserForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
         exact
-        path="/usersList/editUsersDetails/:id"
+        path="/users-list/edit/:id"
         component={UserForm}
         isLoggedIn={isLoggedIn}
       />

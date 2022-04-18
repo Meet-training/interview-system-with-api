@@ -50,7 +50,7 @@ const UserForm = () => {
 
   const exitHandler = (e) => {
     e.preventDefault();
-    history.push("/usersList");
+    history.push("/users-list");
   };
 
   return (

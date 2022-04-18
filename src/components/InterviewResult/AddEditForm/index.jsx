@@ -43,7 +43,7 @@ const InterviewResultForm = () => {
   const exitHandler = (e) => {
     e.preventDefault();
     dispatch(interviewResultActions.singleRemoveResultRequest());
-    history.push("/interviewResult");
+    history.push("/interview-result");
   };
 
   return (

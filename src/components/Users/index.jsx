@@ -47,7 +47,7 @@ const UserListTable = () => {
 
   const handleAddUser = (e) => {
     e.preventDefault();
-    history.push("/usersList/addUsersDetails");
+    history.push("/users-list/add");
   };
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const UserListTable = () => {
 
   const editHandler = (id) => {
     dispatch(userActions.getSingleUsersRequest(id));
-    history.push(`/usersList/editUsersDetails/${id}`);
+    history.push(`/users-list/edit/${id}`);
   };
 
   const deleteResultHandler = (id) => {

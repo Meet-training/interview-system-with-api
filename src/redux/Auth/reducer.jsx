@@ -5,7 +5,6 @@ const initState = {
   errorData: {},
   action: null,
   token: null,
-  loading: false,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -17,14 +16,13 @@ export default (state = initState, action) => {
         errorData: {},
         action: action.type,
         token: null,
-        loading: true,
       };
     case actions.LOGIN_SUCCESS:
       return {
         ...state,
         user: action.payload,
         action: action.type,
-        loading: false,
+
         token: action.payload.token,
       };
     case actions.LOGIN_ERROR:
@@ -33,7 +31,6 @@ export default (state = initState, action) => {
         errorData: action.errors || {},
         action: action.type,
         token: null,
-        loading: false,
       };
     case actions.LOGOUT_REQUEST:
       return {

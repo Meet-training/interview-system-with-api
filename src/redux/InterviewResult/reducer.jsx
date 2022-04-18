@@ -95,7 +95,7 @@ export default (state = initialState, action) => {
         errorData: {},
         loading: true,
         message: null,
-        loading: true,
+
         action: action.type,
       };
     case actions.CREATE_INTERVIEW_RESULT_SUCCESS:
@@ -103,7 +103,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         Interview: action.payload,
-        loading: false,
+
         action: action.type,
       };
     case actions.CREATE_INTERVIEW_RESULT_ERROR:
@@ -111,7 +111,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         message: action.payload,
-        loading: false,
+
         errorData: action.errors || {},
         action: action.type,
       };
@@ -120,7 +120,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errorData: {},
-        loading: true,
+
         message: null,
         id: "",
 
@@ -129,7 +129,7 @@ export default (state = initialState, action) => {
     case actions.GET_SINGLE_INTERVIEW_RESULT_SUCCESS: {
       return {
         ...state,
-        loading: false,
+
         InterviewResultDetails: action.payload.data,
         action: action.type,
       };
@@ -138,7 +138,7 @@ export default (state = initialState, action) => {
     case actions.GET_SINGLE_INTERVIEW_RESULT_ERROR:
       return {
         ...state,
-        loading: false,
+
         message: action.payload,
         errorData: action.errors || {},
         action: action.type,

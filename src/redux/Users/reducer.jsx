@@ -6,7 +6,6 @@ const initialState = {
   UsersDetails: {},
   errorData: {},
   action: null,
-  loading: false,
 };
 
 export default (state = initialState, action) => {
@@ -17,7 +16,7 @@ export default (state = initialState, action) => {
         errorData: {},
         loading: true,
         message: null,
-        loading: true,
+
         action: action.type,
       };
     case actions.CREATE_USERS_SUCCESS:
@@ -25,7 +24,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         users: action.payload,
-        loading: false,
+
         action: action.type,
       };
     case actions.CREATE_USERS_ERROR:
@@ -33,7 +32,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         message: action.payload,
-        loading: false,
+
         errorData: action.errors || {},
         action: action.type,
       };
@@ -59,7 +58,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errorData: {},
-        loading: true,
+
         message: null,
         id: "",
 
@@ -68,7 +67,7 @@ export default (state = initialState, action) => {
     case actions.GET_SINGLE_USERS_SUCCESS: {
       return {
         ...state,
-        loading: false,
+
         UsersDetails: action.payload.data,
         action: action.type,
       };
@@ -77,7 +76,7 @@ export default (state = initialState, action) => {
     case actions.GET_SINGLE_USERS_ERROR:
       return {
         ...state,
-        loading: false,
+
         message: action.payload,
         errorData: action.errors || {},
         action: action.type,
