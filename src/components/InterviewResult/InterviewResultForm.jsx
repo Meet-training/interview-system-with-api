@@ -33,21 +33,22 @@ const InterviewResultForm = () => {
   const dispatch = useDispatch();
 
   let initialValue = {
-    date: InterviewResultDetails.date || "",
-    name: InterviewResultDetails.name || "",
-    interviewer: InterviewResultDetails.interviewer || [],
-    technology: InterviewResultDetails.technology || [],
-    experience: InterviewResultDetails.experience || "",
-    rounds: InterviewResultDetails.rounds || "",
-    communication: InterviewResultDetails.communication || "",
-    practicalCompletion: InterviewResultDetails.practicalCompletion || "",
-    codingStandard: InterviewResultDetails.codingStandard || "",
-    technicalRound: InterviewResultDetails.technicalRound || "",
-    notes: InterviewResultDetails.notes || "",
+    date: "",
+    name: "",
+    interviewer: [],
+    technology: [],
+    experience: "",
+    rounds: "",
+    communication: "",
+    practicalCompletion: "",
+    codingStandard: "",
+    technicalRound: "",
+    notes: "",
   };
 
   const exitHandler = (e) => {
     e.preventDefault();
+    dispatch(interviewResultActions.singleRemoveResultRequest());
     history.push("/interviewResult");
   };
 
@@ -102,7 +103,7 @@ const InterviewResultForm = () => {
                 type="date"
                 name="date"
                 label="Date Of Interview"
-                value={values.date}
+                value={InterviewResultDetails.date || values.date || ""}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={Boolean(touched.date && errors.date)}
@@ -126,7 +127,7 @@ const InterviewResultForm = () => {
                   type="text"
                   name="name"
                   label="Candidate Name"
-                  value={values.name}
+                  value={InterviewResultDetails.name || values.name || ""}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -149,7 +150,11 @@ const InterviewResultForm = () => {
                     id="demo-simple-select"
                     name="interviewer"
                     label="Interviewer Name"
-                    value={values.interviewer}
+                    value={
+                      InterviewResultDetails.interviewer ||
+                      values.interviewer ||
+                      []
+                    }
                     multiple
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -187,7 +192,11 @@ const InterviewResultForm = () => {
                     onBlur={handleBlur}
                     multiple
                     sx={{ textAlign: "left" }}
-                    value={values.technology}
+                    value={
+                      InterviewResultDetails.technology ||
+                      values.technology ||
+                      []
+                    }
                     onChange={handleChange}
                     error={Boolean(touched.technology && errors.technology)}
                     fullWidth
@@ -213,7 +222,9 @@ const InterviewResultForm = () => {
                   name="experience"
                   label="Experience"
                   onBlur={handleBlur}
-                  value={values.experience}
+                  value={
+                    InterviewResultDetails.experience || values.experience || ""
+                  }
                   onChange={handleChange}
                   variant="outlined"
                   error={Boolean(touched.experience && errors.experience)}
@@ -239,7 +250,7 @@ const InterviewResultForm = () => {
                     label="Round"
                     onBlur={handleBlur}
                     sx={{ textAlign: "left" }}
-                    value={values.rounds}
+                    value={InterviewResultDetails.rounds || values.rounds || ""}
                     onChange={handleChange}
                     error={Boolean(touched.rounds && errors.rounds)}
                     fullWidth
@@ -267,7 +278,11 @@ const InterviewResultForm = () => {
                     label="Communication"
                     onBlur={handleBlur}
                     sx={{ textAlign: "left" }}
-                    value={values.communication}
+                    value={
+                      InterviewResultDetails.communication ||
+                      values.communication ||
+                      ""
+                    }
                     onChange={handleChange}
                     error={Boolean(
                       touched.communication && errors.communication
@@ -295,7 +310,11 @@ const InterviewResultForm = () => {
                   type="text"
                   name="practicalCompletion"
                   label="Practical Completion (0-100)%"
-                  value={values.practicalCompletion}
+                  value={
+                    InterviewResultDetails.practicalCompletion ||
+                    values.practicalCompletion ||
+                    ""
+                  }
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -316,7 +335,11 @@ const InterviewResultForm = () => {
                   type="text"
                   name="codingStandard"
                   label="Coding Standard (0-100)%"
-                  value={values.codingStandard}
+                  value={
+                    InterviewResultDetails.codingStandard ||
+                    values.codingStandard ||
+                    ""
+                  }
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -340,7 +363,11 @@ const InterviewResultForm = () => {
                   type="text"
                   name="technicalRound"
                   label="Technical Completion (0-100)%"
-                  value={values.technicalRound}
+                  value={
+                    InterviewResultDetails.technicalRound ||
+                    values.technicalRound ||
+                    ""
+                  }
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -361,7 +388,7 @@ const InterviewResultForm = () => {
                   type="text"
                   name="notes"
                   label="Notes"
-                  value={values.notes}
+                  value={InterviewResultDetails.notes || values.notes || ""}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"

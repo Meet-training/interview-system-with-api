@@ -144,6 +144,12 @@ export default (state = initialState, action) => {
         action: action.type,
       };
 
+    case actions.REMOVE_SINGLE_RESULT_SUCCESS:
+      return {
+        ...state,
+        InterviewResultDetails: {},
+      };
+
     case actions.UPDATE_INTERVIEW_DETIAL_SUCCESS:
       return {
         ...state,

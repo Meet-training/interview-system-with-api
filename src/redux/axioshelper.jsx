@@ -1,7 +1,4 @@
 import axios from "axios";
-import { notification } from "antd";
-import authActions from "./Auth/action";
-import { store } from "./store";
 
 const BASE_URL = process.env.REACT_APP_API;
 
@@ -24,26 +21,6 @@ const getHeaders = () => {
   return config;
 };
 
-const checkError = (error) => {
-  if (error.response && error.response.data) {
-    let { data } = error.response;
-    if (data.message) {
-      notification["error"]({});
-    }
-  } else {
-    notification["error"]({});
-  }
-  if (error.response) {
-    if (error.response.status === 401) {
-      store.dispatch(authActions.logout());
-    }
-  }
-};
-
-const successMessage = (message = "Success") => {
-  notification.success({});
-};
-
 /**
  * Get call from Axios
  */
@@ -51,7 +28,6 @@ const axiosGet = async (url) => {
   try {
     return await axios.get(`${BASE_URL}/${url}`, getHeaders());
   } catch (error) {
-    checkError(error);
     throw error.response.data;
   }
 };
@@ -61,12 +37,9 @@ const axiosGet = async (url) => {
 const axiosPost = async (data, url) => {
   try {
     let request = await axios.post(`${BASE_URL}/${url}`, data, getHeaders());
-    if (request.data && request.data.message) {
-      await successMessage(request.data.message);
-    }
+
     return request;
   } catch (error) {
-    checkError(error);
     throw error.response.data;
   }
 };
@@ -78,12 +51,8 @@ const axiosPut = async (data, url) => {
   try {
     let request = await axios.put(`${BASE_URL}/${url}`, data, getHeaders());
 
-    if (request.data && request.data.message) {
-      await successMessage(request.data.message);
-    }
     return request;
   } catch (error) {
-    checkError(error);
     throw error.response.data;
   }
 };
@@ -101,12 +70,9 @@ const axiosSave = async (oldTask, newTask, url) => {
       },
       getHeaders()
     );
-    if (request.data && request.data.message) {
-      await successMessage(request.data.message);
-    }
+
     return request;
   } catch (error) {
-    checkError(error);
     throw error.response.data;
   }
 };
@@ -116,9 +82,7 @@ const axiosSave = async (oldTask, newTask, url) => {
  */
 const axiosDelete = async (url) => {
   let request = await axios.delete(`${BASE_URL}/${url}`, getHeaders());
-  if (request.data && request.data.message) {
-    await successMessage(request.data.message);
-  }
+
   return request;
 };
 

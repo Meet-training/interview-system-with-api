@@ -50,6 +50,20 @@ export function* getSingleInterviewResultData({ id }) {
 }
 
 /**
+ *  Remove single detail of interview result.
+ */
+
+export function* removeSingleResultRequest() {
+  try {
+    yield put(actions.singleRemoveResultSuccess());
+  } catch (error) {
+    yield put(
+      actions.getSingleInterviewResultFailure(error.message, error.data || {})
+    );
+  }
+}
+
+/**
  * update interview result.
  *
  */
@@ -83,6 +97,7 @@ export default function* rootSaga() {
       actions.GET_SINGLE_INTERVIEW_RESULT_REQUEST,
       getSingleInterviewResultData
     ),
+    takeEvery(actions.REMOVE_SINGLE_RESULT_REQUEST, removeSingleResultRequest),
     takeEvery(actions.UPDATE_INTERVIEW_DETIAL_REQUEST, updateResultRequest),
     takeEvery(actions.DELETE_INTERVIEW_DETAIL_REQUEST, deleteInterviewResult),
   ]);

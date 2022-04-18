@@ -6,7 +6,7 @@ const passwordRegex =
   /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 
 const UserFormSchema = Yup.object().shape({
-  images: Yup.mixed().required("Please Upload Image!"),
+  image: Yup.mixed().required("Please Upload Image!"),
 
   first_name: Yup.string()
     .min(4, "FirstName at least 4 character required!")

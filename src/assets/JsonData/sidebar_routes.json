@@ -6,7 +6,7 @@
     },
     {
         "display_name": "Users",
-        "route": "/users",
+        "route": "/usersList",
         "icon": "bx bxs-user"
     }
 ]

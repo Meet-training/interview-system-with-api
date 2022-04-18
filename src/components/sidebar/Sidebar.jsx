@@ -2,8 +2,6 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import "./sidebar.css";
-
 import sidebar_items from "../../assets/JsonData/sidebar_routes.json";
 
 import { Divider } from "@mui/material";
@@ -48,7 +46,7 @@ const Sidebar = (props) => {
       </Link>
 
       {valid && (
-        <Link to="/users">
+        <Link to="/usersList">
           <SidebarItem
             title="Users"
             icon="bx bxs-user"

@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import UserForm from "./Users/UserForm";
 
-import UserResultTable from "./Users/UserListTable";
+import UserListTable from "./Users/UserListTable";
 
 import InterviewResultForm from "./InterviewResult/InterviewResultForm";
 
@@ -48,22 +48,22 @@ const Routes = () => {
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/editResult/:id"
+        path="/editInterviewResult/:id"
         component={InterviewResultForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/users"
-        component={UserResultTable}
+        path="/usersList"
+        component={UserListTable}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/addUsers"
+        path="/addUsersDetails"
         component={UserForm}
         isLoggedIn={isLoggedIn}
       />
       <RestrictedRoute
-        path="/editUsers/:id"
+        path="/editUsersDetails/:id"
         component={UserForm}
         isLoggedIn={isLoggedIn}
       />

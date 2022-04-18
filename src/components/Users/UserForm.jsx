@@ -43,7 +43,7 @@ const UserForm = () => {
     first_name: UsersDetails.first_name || "",
     last_name: UsersDetails.last_name || "",
     email: UsersDetails.email || "",
-    dateOfBirth: UsersDetails.dateOfBirth?.slice(0, 10) || "",
+    dateOfBirth: UsersDetails?.dateOfBirth?.slice(0, 10) || "",
     password: UsersDetails.password || "",
     role: UsersDetails.role || "",
   };
@@ -80,7 +80,7 @@ const UserForm = () => {
         initialValues={{
           ...initialValue,
         }}
-        // validationSchema={schema}
+        validationSchema={schema}
         enableReinitialize={true}
         onSubmit={(values) => {
           if (action === "GET_SINGLE_USERS_SUCCESS") {
@@ -110,11 +110,9 @@ const UserForm = () => {
               <TextField
                 type="file"
                 name="image"
-                onBlur={handleBlur}
                 onChange={handleImageChange}
                 accept="image/*"
                 variant="outlined"
-                required
               />
               <ErrorMessage
                 component="div"
@@ -280,7 +278,6 @@ const UserForm = () => {
               <Button
                 sx={{ borderRadius: 2 }}
                 color="primary"
-                disabled={Boolean(!isValid)}
                 type="submit"
                 variant="contained"
               >

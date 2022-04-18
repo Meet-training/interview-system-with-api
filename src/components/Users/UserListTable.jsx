@@ -46,16 +46,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const UserResultTable = () => {
+const UserListTable = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
 
-  const userData = useSelector((state) => state.users.UsersTable);
+  const userDetailsTable = useSelector((state) => state.users.UsersTable);
 
   const handleAddUser = (e) => {
     e.preventDefault();
-    history.push("/addUsers");
+    history.push("/addUsersDetails");
   };
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const UserResultTable = () => {
 
   const editHandler = (id) => {
     dispatch(userActions.getSingleUsersRequest(id));
-    history.push(`/editUsers/${id}`);
+    history.push(`/editUsersDetails/${id}`);
   };
 
   const deleteResultHandler = (id) => {
@@ -110,7 +110,7 @@ const UserResultTable = () => {
           </TableHead>
 
           <TableBody>
-            {userData.map((row) => (
+            {userDetailsTable.map((row) => (
               <StyledTableRow key={`${row._id}`}>
                 <StyledTableCell align="left">{row.first_name}</StyledTableCell>
                 <StyledTableCell align="left">{row.last_name}</StyledTableCell>
@@ -127,7 +127,7 @@ const UserResultTable = () => {
           </TableBody>
         </Table>
 
-        {userData.length === 0 && (
+        {userDetailsTable.length === 0 && (
           <Typography variant="h6" sx={{ color: "red", my: 2 }}>
             No Record Found!
           </Typography>
@@ -137,4 +137,4 @@ const UserResultTable = () => {
   );
 };
 
-export default UserResultTable;
+export default UserListTable;

@@ -6,6 +6,7 @@ const initialState = {
   UsersDetails: {},
   errorData: {},
   action: null,
+  loading: false,
 };
 
 export default (state = initialState, action) => {
@@ -81,6 +82,13 @@ export default (state = initialState, action) => {
         errorData: action.errors || {},
         action: action.type,
       };
+
+    case actions.REMOVE_SINGLE_USERS_SUCCESS:
+      return {
+        ...state,
+        UsersDetails: {},
+      };
+
     case actions.UPDATE_USERS_DETAIL_SUCCESS:
       return {
         ...state,

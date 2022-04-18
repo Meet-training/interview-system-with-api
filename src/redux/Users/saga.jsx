@@ -25,7 +25,7 @@ export function* createUsersReport({ queryParams }) {
     yield put(actions.createUsersReportSuccess(data));
     yield put(actions.getUsersReport());
 
-    yield put(push("/users"));
+    yield put(push("/usersList"));
   } catch (error) {
     yield put(
       actions.createUsersReportFailure(error.message, error.data || {})
@@ -46,6 +46,18 @@ export function* getSingleUsersReport({ id }) {
 }
 
 /**
+ *  Remove single detail of interview result.
+ */
+
+export function* removeSingleUsersRequest() {
+  try {
+    yield put(actions.singleRemoveUsersSuccess());
+  } catch (error) {
+    yield put(actions.getSingleUsersFailure(error.message, error.data || {}));
+  }
+}
+
+/**
  * update detail of users .
  */
 
@@ -53,7 +65,7 @@ export function* updateUserReport({ payload, id }) {
   try {
     const { data } = yield axiosPut(payload, `updateUserDetails/${id}`);
     yield put(actions.updateUsersDetailSuccess(data));
-    yield put(push("/users"));
+    yield put(push("/usersList"));
   } catch (error) {
     yield put(
       actions.updateUsersDetailFailure(error.message, error.data || {})
@@ -75,6 +87,7 @@ export default function* rootSaga() {
     takeEvery(actions.CREATE_USERS_REQUEST, createUsersReport),
     takeEvery(actions.GET_ALL_USERS_REQUEST, getUsersReport),
     takeEvery(actions.GET_SINGLE_USERS_REQUEST, getSingleUsersReport),
+    takeEvery(actions.REMOVE_SINGLE_USERS_REQUEST, removeSingleUsersRequest),
     takeEvery(actions.UPDATE_USERS_DETAIL_REQUEST, updateUserReport),
     takeEvery(actions.DELETE_USERS_DETAIL_REQUEST, deleteUserReport),
   ]);

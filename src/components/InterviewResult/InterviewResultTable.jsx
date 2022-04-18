@@ -67,7 +67,7 @@ const InterviewResultTable = () => {
 
   const editHandler = (id) => {
     dispatch(interviewResultActions.getSingleInterviewResultRequest(id));
-    history.push(`/editResult/${id}`);
+    history.push(`/editInterviewResult/${id}`);
   };
 
   const deleteResultHandler = (id) => {

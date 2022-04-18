@@ -11,6 +11,10 @@ const actions = {
   GET_SINGLE_USERS_SUCCESS: "GET_SINGLE_USERS_SUCCESS",
   GET_SINGLE_USERS_ERROR: "GET_SINGLE_USERS_ERROR",
 
+  REMOVE_SINGLE_USERS_REQUEST: "REMOVE_SINGLE_USERS_REQUEST",
+  REMOVE_SINGLE_USERS_SUCCESS: "REMOVE_SINGLE_USERS_SUCCESS",
+  REMOVE_SINGLE_USERS_ERROR: "REMOVE_SINGLE_USERS_ERROR",
+
   UPDATE_USERS_DETAIL_REQUEST: "UPDATE_USERS_DETAIL_REQUEST",
   UPDATE_USERS_DETAIL_SUCCESS: "UPDATE_USERS_DETAIL_SUCCESS",
   UPDATE_USERS_DETAIL_ERROR: "UPDATE_USERS_DETAIL_ERROR",
@@ -79,6 +83,22 @@ const actions = {
     type: actions.GET_SINGLE_USERS_ERROR,
     payload,
     errors,
+  }),
+
+  /**
+   *  get Single Remove Remove .
+   */
+
+  singleRemoveUsersRequest: () => ({
+    type: actions.REMOVE_SINGLE_USERS_REQUEST,
+  }),
+
+  singleRemoveUsersSuccess: () => ({
+    type: actions.REMOVE_SINGLE_USERS_SUCCESS,
+  }),
+
+  singleRemoveUsersError: () => ({
+    type: actions.REMOVE_SINGLE_USERS_ERROR,
   }),
 
   /**

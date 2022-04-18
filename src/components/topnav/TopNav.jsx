@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./topnav.css";
-
 import { Link } from "react-router-dom";
 
 import Dropdown from "../dropdown/Dropdown";
