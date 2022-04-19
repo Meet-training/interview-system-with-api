@@ -14,9 +14,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import formdata from "to-formdata";
-import schema from "../../../Validation/UserFormSchema";
-import userActions from "../../../Redux/Users/actions";
-import roleAction from "../../../Redux/Role/actions";
+import schema from "../../Validation/UserFormSchema";
+import userActions from "../../Redux/Users/actions";
+import roleAction from "../../Redux/Role/actions";
 
 const UserForm = () => {
   const { UsersDetails, action } = useSelector((state) => state.users);
@@ -32,6 +32,7 @@ const UserForm = () => {
   const { id } = useParams();
 
   let initialValue = {
+    image: {},
     first_name: UsersDetails.first_name || "",
     last_name: UsersDetails.last_name || "",
     email: UsersDetails.email || "",
@@ -50,6 +51,7 @@ const UserForm = () => {
 
   const exitHandler = (e) => {
     e.preventDefault();
+    dispatch(userActions.singleRemoveUsersRequest());
     history.push("/users-list");
   };
 
@@ -66,19 +68,23 @@ const UserForm = () => {
       }}
     >
       <Typography variant="h5" sx={{ mb: 3 }}>
-        User Form
+        {id ? "Edit User" : "Add User"}
       </Typography>
       <Formik
+        enableReinitialize={true}
         initialValues={{
           ...initialValue,
         }}
         validationSchema={schema}
-        enableReinitialize={true}
         onSubmit={(values) => {
-          if (action === "GET_SINGLE_USERS_SUCCESS") {
-            dispatch(userActions.updateUsersDetail(formdata(values), id));
+          let newData = {
+            ...values,
+            image: images?.name,
+          };
+          if (id) {
+            dispatch(userActions.updateUsersDetail(formdata(newData), id));
           } else {
-            dispatch(userActions.createUsersReport(formdata(values)));
+            dispatch(userActions.createUsersReport(formdata(newData)));
           }
         }}
       >
@@ -98,19 +104,20 @@ const UserForm = () => {
             onSubmit={handleSubmit}
           >
             <Grid sx={{ mb: 4 }}>
-              <Typography>Upload Image</Typography>
-              <TextField
-                type="file"
-                name="image"
-                onChange={handleImageChange}
-                accept="image/*"
-                variant="outlined"
-              />
-              <ErrorMessage
-                component="div"
-                name="image"
-                className="invalid-feedback"
-              />
+              <Grid item md={6} xs={12}>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={handleImageChange}
+                  multiple
+                  accept="image/*"
+                />
+                <ErrorMessage
+                  component="div"
+                  name="image"
+                  className="invalid-feedback"
+                />
+              </Grid>
             </Grid>
             <Grid container spacing={2}>
               <Grid sx={{ mb: 2 }} item md={6} xs={12}>
@@ -273,9 +280,10 @@ const UserForm = () => {
                 sx={{ borderRadius: 2 }}
                 color="primary"
                 type="submit"
+                disabled={Boolean(!isValid)}
                 variant="contained"
               >
-                Submit
+                {id ? "Update" : "Submit"}
               </Button>
             </Grid>
           </form>

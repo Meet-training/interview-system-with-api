@@ -14,25 +14,19 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errorData: {},
-        loading: true,
         message: null,
-
         action: action.type,
       };
     case actions.CREATE_USERS_SUCCESS:
       return {
         ...state,
-        loading: false,
         users: action.payload,
-
         action: action.type,
       };
     case actions.CREATE_USERS_ERROR:
       return {
         ...state,
-        loading: false,
         message: action.payload,
-
         errorData: action.errors || {},
         action: action.type,
       };
@@ -58,16 +52,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errorData: {},
-
         message: null,
         id: "",
-
         action: action.type,
       };
     case actions.GET_SINGLE_USERS_SUCCESS: {
       return {
         ...state,
-
         UsersDetails: action.payload.data,
         action: action.type,
       };
@@ -76,7 +67,6 @@ export default (state = initialState, action) => {
     case actions.GET_SINGLE_USERS_ERROR:
       return {
         ...state,
-
         message: action.payload,
         errorData: action.errors || {},
         action: action.type,

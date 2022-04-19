@@ -93,25 +93,19 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errorData: {},
-        loading: true,
         message: null,
-
         action: action.type,
       };
     case actions.CREATE_INTERVIEW_RESULT_SUCCESS:
       return {
         ...state,
-        loading: false,
         Interview: action.payload,
-
         action: action.type,
       };
     case actions.CREATE_INTERVIEW_RESULT_ERROR:
       return {
         ...state,
-        loading: false,
         message: action.payload,
-
         errorData: action.errors || {},
         action: action.type,
       };
@@ -120,16 +114,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errorData: {},
-
         message: null,
         id: "",
-
         action: action.type,
       };
     case actions.GET_SINGLE_INTERVIEW_RESULT_SUCCESS: {
       return {
         ...state,
-
         InterviewResultDetails: action.payload.data,
         action: action.type,
       };
@@ -138,7 +129,6 @@ export default (state = initialState, action) => {
     case actions.GET_SINGLE_INTERVIEW_RESULT_ERROR:
       return {
         ...state,
-
         message: action.payload,
         errorData: action.errors || {},
         action: action.type,

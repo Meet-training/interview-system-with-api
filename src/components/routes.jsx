@@ -3,8 +3,8 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import InterviewResultForm from "./InterviewResult/AddEditForm";
 import InterviewResultTable from "./InterviewResult";
-import UserListTable from "./Users";
 import UserForm from "./Users/AddEditForm";
+import UserListTable from "./Users";
 
 const RestrictedRoute = ({ component: Component, isLoggedIn, ...rest }) => {
   return (

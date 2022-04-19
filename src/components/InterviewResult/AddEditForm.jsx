@@ -13,8 +13,8 @@ import {
   Paper,
 } from "@mui/material";
 import { useHistory, useParams } from "react-router-dom";
-import schema from "../../../Validation/InterviewFormSchema";
-import interviewResultActions from "../../../Redux/InterviewResult/action";
+import schema from "../../Validation/InterviewFormSchema";
+import interviewResultActions from "../../Redux/InterviewResult/action";
 
 const InterviewResultForm = () => {
   const { id } = useParams();
@@ -27,17 +27,17 @@ const InterviewResultForm = () => {
   const dispatch = useDispatch();
 
   let initialValue = {
-    date: "",
-    name: "",
-    interviewer: [],
-    technology: [],
-    experience: "",
-    rounds: "",
-    communication: "",
-    practicalCompletion: "",
-    codingStandard: "",
-    technicalRound: "",
-    notes: "",
+    date: InterviewResultDetails.date || "",
+    name: InterviewResultDetails.name || "",
+    interviewer: InterviewResultDetails.interviewer || [],
+    technology: InterviewResultDetails.technology || [],
+    experience: InterviewResultDetails.experience || "",
+    rounds: InterviewResultDetails.rounds || "",
+    communication: InterviewResultDetails.communication || "",
+    practicalCompletion: InterviewResultDetails.practicalCompletion || "",
+    codingStandard: InterviewResultDetails.codingStandard || "",
+    technicalRound: InterviewResultDetails.technicalRound || "",
+    notes: InterviewResultDetails.notes || "",
   };
 
   const exitHandler = (e) => {
@@ -59,7 +59,7 @@ const InterviewResultForm = () => {
       }}
     >
       <Typography variant="h5" sx={{ mb: 3 }}>
-        Interview Result Form
+        {id ? "Update Result Form" : "Add Result Form"}
       </Typography>
 
       <Formik
@@ -97,7 +97,7 @@ const InterviewResultForm = () => {
                 type="date"
                 name="date"
                 label="Date Of Interview"
-                value={InterviewResultDetails.date || values.date || ""}
+                value={values.date}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 error={Boolean(touched.date && errors.date)}
@@ -121,7 +121,7 @@ const InterviewResultForm = () => {
                   type="text"
                   name="name"
                   label="Candidate Name"
-                  value={InterviewResultDetails.name || values.name || ""}
+                  value={values.name}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -144,11 +144,7 @@ const InterviewResultForm = () => {
                     id="demo-simple-select"
                     name="interviewer"
                     label="Interviewer Name"
-                    value={
-                      InterviewResultDetails.interviewer ||
-                      values.interviewer ||
-                      []
-                    }
+                    value={values.interviewer}
                     multiple
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -186,11 +182,7 @@ const InterviewResultForm = () => {
                     onBlur={handleBlur}
                     multiple
                     sx={{ textAlign: "left" }}
-                    value={
-                      InterviewResultDetails.technology ||
-                      values.technology ||
-                      []
-                    }
+                    value={values.technology}
                     onChange={handleChange}
                     error={Boolean(touched.technology && errors.technology)}
                     fullWidth
@@ -216,9 +208,7 @@ const InterviewResultForm = () => {
                   name="experience"
                   label="Experience"
                   onBlur={handleBlur}
-                  value={
-                    InterviewResultDetails.experience || values.experience || ""
-                  }
+                  value={values.experience}
                   onChange={handleChange}
                   variant="outlined"
                   error={Boolean(touched.experience && errors.experience)}
@@ -244,7 +234,7 @@ const InterviewResultForm = () => {
                     label="Round"
                     onBlur={handleBlur}
                     sx={{ textAlign: "left" }}
-                    value={InterviewResultDetails.rounds || values.rounds || ""}
+                    value={values.rounds}
                     onChange={handleChange}
                     error={Boolean(touched.rounds && errors.rounds)}
                     fullWidth
@@ -272,11 +262,7 @@ const InterviewResultForm = () => {
                     label="Communication"
                     onBlur={handleBlur}
                     sx={{ textAlign: "left" }}
-                    value={
-                      InterviewResultDetails.communication ||
-                      values.communication ||
-                      ""
-                    }
+                    value={values.communication}
                     onChange={handleChange}
                     error={Boolean(
                       touched.communication && errors.communication
@@ -304,11 +290,7 @@ const InterviewResultForm = () => {
                   type="text"
                   name="practicalCompletion"
                   label="Practical Completion (0-100)%"
-                  value={
-                    InterviewResultDetails.practicalCompletion ||
-                    values.practicalCompletion ||
-                    ""
-                  }
+                  value={values.practicalCompletion}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -329,11 +311,7 @@ const InterviewResultForm = () => {
                   type="text"
                   name="codingStandard"
                   label="Coding Standard (0-100)%"
-                  value={
-                    InterviewResultDetails.codingStandard ||
-                    values.codingStandard ||
-                    ""
-                  }
+                  value={values.codingStandard}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -357,11 +335,7 @@ const InterviewResultForm = () => {
                   type="text"
                   name="technicalRound"
                   label="Technical Completion (0-100)%"
-                  value={
-                    InterviewResultDetails.technicalRound ||
-                    values.technicalRound ||
-                    ""
-                  }
+                  value={values.technicalRound}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -382,7 +356,7 @@ const InterviewResultForm = () => {
                   type="text"
                   name="notes"
                   label="Notes"
-                  value={InterviewResultDetails.notes || values.notes || ""}
+                  value={values.notes}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   variant="outlined"
@@ -431,7 +405,7 @@ const InterviewResultForm = () => {
                 type="submit"
                 variant="contained"
               >
-                Submit
+                {id ? "Update" : "Submit"}
               </Button>
             </Grid>
           </form>

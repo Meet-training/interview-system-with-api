@@ -31,7 +31,7 @@ export function* createUsersReport({ queryParams }) {
     yield put(actions.createUsersReportSuccess(data));
     yield put(actions.getUsersReport());
 
-    yield put(push("/usersList"));
+    yield put(push("/users-list"));
   } catch (error) {
     yield put(
       actions.createUsersReportFailure(error.message, error.data || {})
@@ -71,7 +71,7 @@ export function* updateUserReport({ payload, id }) {
   try {
     const { data } = yield axiosPut(payload, `updateUserDetails/${id}`);
     yield put(actions.updateUsersDetailSuccess(data));
-    yield put(push("/usersList"));
+    yield put(push("/users-list"));
   } catch (error) {
     yield put(
       actions.updateUsersDetailFailure(error.message, error.data || {})

@@ -33,7 +33,7 @@ const Sidebar = (props) => {
       <div className="sidebar__logo">Interview System</div>
       <Divider variant="middle" sx={{ mb: 2 }} />
 
-      <Link to="/interviewResult">
+      <Link to="/interview-result">
         <SidebarItem
           title="Interview Result"
           icon="bx bx-table"
@@ -42,7 +42,7 @@ const Sidebar = (props) => {
       </Link>
 
       {valid && (
-        <Link to="/usersList">
+        <Link to="/users-list">
           <SidebarItem
             title="Users"
             icon="bx bxs-user"
