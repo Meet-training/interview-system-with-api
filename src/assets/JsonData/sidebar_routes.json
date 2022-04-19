@@ -1,12 +1,12 @@
 [
     {
         "display_name": "Interview Result",
-        "route": "/interviewResult",
+        "route": "/interview-result",
         "icon": "bx bx-table"
     },
     {
         "display_name": "Users",
-        "route": "/usersList",
+        "route": "/users-list",
         "icon": "bx bxs-user"
     }
 ]

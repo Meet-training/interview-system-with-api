@@ -47,6 +47,7 @@ const UserListTable = () => {
 
   const handleAddUser = (e) => {
     e.preventDefault();
+    dispatch(userActions.singleRemoveUsersRequest());
     history.push("/users-list/add");
   };
 
@@ -87,7 +88,7 @@ const UserListTable = () => {
           }}
         >
           <AddIcon sx={{ mr: 1 }} />
-          Add Users
+          Add
         </Button>
       </Box>
 

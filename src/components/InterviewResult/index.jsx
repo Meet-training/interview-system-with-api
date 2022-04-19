@@ -53,6 +53,7 @@ const InterviewResultTable = () => {
 
   const handleAddInterviewResult = (e) => {
     e.preventDefault();
+    dispatch(interviewResultActions.singleRemoveResultRequest());
     history.push("/interview-result/add");
   };
 
@@ -89,7 +90,7 @@ const InterviewResultTable = () => {
           }}
         >
           <AddIcon sx={{ mr: 1 }} />
-          Add Result
+          Add
         </Button>
       </Box>
 
