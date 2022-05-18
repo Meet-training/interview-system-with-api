@@ -19,7 +19,7 @@ import userActions from "../../Redux/Users/actions";
 import roleAction from "../../Redux/Role/actions";
 
 const UserForm = () => {
-  const { UsersDetails, action } = useSelector((state) => state.users);
+  const { UsersDetails } = useSelector((state) => state.users);
 
   const roleData = useSelector((state) => state.roles.Roles);
 

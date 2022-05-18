@@ -52,7 +52,6 @@ const LoginLayout = () => {
               ...initialValue,
             }}
             onSubmit={(values) => {
-              console.log(values);
               handleSubmit(values);
             }}
             validationSchema={LoginSchema}
